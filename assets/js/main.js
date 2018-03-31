@@ -120,7 +120,25 @@ function spot(uid,label,address,type,isFavorite){
     };
     // function that renders the spot
     this.render = function(){
-        console.log(this);
+        console.log(this.timeTo);
+        // creating the div elements
+        let spotElement = $('<div></div>');
+        let spotElementLabel = $('<div></div>');
+        let spotElementTimeTo = $('<div></div');
+        // adding ids
+        spotElement.attr('id','spot' + this.uid);
+        spotElementLabel.attr('id','spot' + this.uid + '-label');
+        spotElementTimeTo.attr('id','spot' +this.uid + '-timeTo');
+        // adding classes
+        spotElement.addClass('spot');
+        spotElementLabel.addClass('spot-label');
+        spotElementTimeTo.addClass('spot-timeTo');
+        // adding Content
+        spotElementLabel.text(this.label);
+        spotElementTimeTo.text(this.timeTo);
+        // pushing the element to HTML
+        spotElement.append(spotElementLabel).append(spotElementTimeTo);
+        $('#spots').append(spotElement);
     };
     // function that update the spot information, and renders
     this.updatespotData = function(){

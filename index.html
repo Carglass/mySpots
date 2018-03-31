@@ -9,13 +9,14 @@
 <body>
     <!-- Initial Page to login -->
     <div id="login-page">
-        <input type="email" name="user-email">
-        <input type="password" name="user-password">
+        <input type="email" id="user-email">
+        <input type="password" id="user-password">
         <button id="login-button">Login</button>
         <button id="signup-button">Sign Up</button>
     </div>
     <!-- Page to Sign Up -->
     <div id="signup-page">
+        <input type="text" id='user-create-display'>
         <input type="email" id="user-create-email">
         <input type="password" id="user-create-password">
         <input type="password" id="user-create-password-confirm">
@@ -25,6 +26,7 @@
     <div id='main-app'>
         <header id="navbar">
             <div id="menu-button">Menu</div>
+            <div id="logout-button">Logout</div>
             <div id="create-spot-button">Create spot</div>
         </header>
         <!-- Header could give a link to a menu to open settings, delete spots, logout etc -> Step2 -->

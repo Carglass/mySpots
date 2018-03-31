@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>mySpots</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+    <!-- Initial Page to login -->
+    <div id="login-page">
+        <input type="email" name="user-email">
+        <input type="password" name="user-password">
+        <button id="login-button">Login</button>
+        <button id="signup-button">Sign Up</button>
+    </div>
+    <!-- Page to Sign Up -->
+    <div id="signup-page">
+        <input type="email" id="user-create-email">
+        <input type="password" id="user-create-password">
+        <input type="password" id="user-create-password-confirm">
+        <button id="signup-submit">Submit</button>
+    </div>
+    <!-- main application inside which there is a navbar with action options, the map, and the spot widgets -->
+    <div id='main-app'>
+        <header id="navbar">
+            <div id="menu-button">Menu</div>
+            <div id="create-spot-button">Create spot</div>
+        </header>
+        <!-- Header could give a link to a menu to open settings, delete spots, logout etc -> Step2 -->
+        <section id="map">Map</section>
+        <section id="spots"></section>
+    </div>
+    <!-- spot Creation Page -->
+    <div id="spot-creation-page">
+        <input type="text" id="data-spot-label">
+        <input type="text" id="data-spot-address">
+        <button id="data-spot-create">Submit</button>
+    </div>
+    <!-- Look up into one spot, information to show to be determined -->
+    <div id="spot-view-page">
+
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/4.12.1/firebase.js"></script>
+    <script>
+    // Initialize Firebase
+    var config = {
+        apiKey: "AIzaSyBlJyxmuoUkTYqiOo5Kqf68m1oESPjssTk",
+        authDomain: "myspots-b4f51.firebaseapp.com",
+        databaseURL: "https://myspots-b4f51.firebaseio.com",
+        projectId: "myspots-b4f51",
+        storageBucket: "myspots-b4f51.appspot.com",
+        messagingSenderId: "329534431602"
+    };
+    firebase.initializeApp(config);
+    </script>
+    <script src="./assets/js/jquery-3.3.1.js"></script>
+    <script src="./assets/js/main.js"></script>
+
+</body>
+</html>

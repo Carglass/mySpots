@@ -68,6 +68,33 @@ var app_view = {
     }
 }
 
+//----------------------------//
+// Geolocalization Management //
+//----------------------------//
+function initMap (){
+    var origin1
+    navigator.geolocation.getCurrentPosition(function(position) {
+        console.log(position.coords.latitude, position.coords.longitude);
+        origin1 = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+        console.log(origin1);
+        var destinationA = '1504 N Bosworth Avenue';
+    
+      var service = new google.maps.DistanceMatrixService();
+      service.getDistanceMatrix(
+        {
+          origins: [origin1],
+          destinations: [destinationA],
+          travelMode: 'DRIVING',
+        }, callback);
+      });
+    
+      
+      function callback(response, status) {
+        // See Parsing the Results for
+        // the basics of a callback function.
+        console.log(response.rows[0].elements[0].duration.text);
+      }
+}
 
 
 //-------------------------//
@@ -269,6 +296,10 @@ $(document).ready(function(){
             // An error happened.
           });
     });
+
+    //------------------------//
+    // Spot Creation Controls //
+    //------------------------//    
 
     // event to open spot creation menu
     $(document).on('click','#create-spot-button', function(){

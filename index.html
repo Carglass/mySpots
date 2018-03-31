@@ -14,8 +14,8 @@
     <div class="login-button" id="login-page">
         <p class="login-text"> Login to MySpots or Create a Free Account!
     </p>
-        <input class="email-style" type="email" name="user-email">
-        <input class="password-style" type="password" name="user-password">
+        <input class="email-style" type="email" id="user-email">
+        <input class="password-style" type="password" id="user-password">
         <br>
         <button class="login-button-style" id="login-button">Login</button>
         <button class="signup-button-style" id="signup-button">Sign Up</button>
@@ -24,6 +24,7 @@
     
     <!-- Page to Sign Up -->
     <div id="signup-page">
+        <input type="text" id='user-create-display'>
         <input type="email" id="user-create-email">
         <input type="password" id="user-create-password">
         <input type="password" id="user-create-password-confirm">
@@ -33,6 +34,7 @@
     <div id='main-app'>
         <header id="navbar">
             <div id="menu-button">Menu</div>
+            <div id="logout-button">Logout</div>
             <div id="create-spot-button">Create spot</div>
         </header>
         <!-- Header could give a link to a menu to open settings, delete spots, logout etc -> Step2 -->

@@ -84,6 +84,7 @@ var spots = {
     // spotArray stores the spot objects for a quick access, sorting etc
     spotsArray: [],
     // called on child_added, stores the new spot into spots, then call render
+    // maybe useless as it will trigger a lot at app startup
     pushspot: function(newSpot){
         this.spotsArray.push(newSpot);
         this.render();
@@ -112,11 +113,14 @@ function spot(uid,label,address,type,isFavorite){
     this.timeTo = 0;
     // function that go fetch data, then assign them to properties
     this.fetchData = function(callback){
+        //for test only
+        this.timeTo = '10 min';
+        //callback may need an existence test before being called as it is optional
         callback();
     };
     // function that renders the spot
     this.render = function(){
-
+        console.log(this);
     };
     // function that update the spot information, and renders
     this.updatespotData = function(){
@@ -159,7 +163,8 @@ database.ref('users/max/locations').on("child_added", function(snapshot){
     let type = snapshot.val().address ? snapshot.val().address : null;
     let spotIter = new spot(uid, label, address, type);
     console.log(spotIter);
-    spots.pushspot(spotIter);
+    spots.spotsArray.push(spotIter);
+    spotIter.fetchData(spotIter.render.bind(spotIter));
 });
 
 

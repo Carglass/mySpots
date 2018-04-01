@@ -26,6 +26,7 @@ var app_view = {
         let mainApp = $('#main-app');
         let spotCreationPage = $('#spot-creation-page');
         let spotViewPage = $('#spot-view-page');
+        let menu = $('#menu-list');
         //switch case on state, and shows/hides the appropriate bloc in html
         if (this.state === 1){
             loginPage.show();
@@ -33,37 +34,43 @@ var app_view = {
             mainApp.hide();
             spotCreationPage.hide();
             spotViewPage.hide();
+            menu.hide();
         } else if (this.state === 2){
             loginPage.hide();
             signupPage.show();
             mainApp.hide();
             spotCreationPage.hide();
             spotViewPage.hide();
+            menu.hide()
         } else if (this.state === 3){
             loginPage.hide();
             signupPage.hide();
             mainApp.show();
             spotCreationPage.hide();
             spotViewPage.hide();
+            menu.hide();
         } else if (this.state === 4){
-            // need to add another group for menu
+            // TODO: evaluate if useful, as .toggle() may be able to do the job
             loginPage.hide();
             signupPage.hide();
-            mainApp.hide();
+            mainApp.show();
             spotCreationPage.hide();
             spotViewPage.hide();
+            menu.show();
         } else if (this.state === 5){
             loginPage.hide();
             signupPage.hide();
             mainApp.hide();
             spotCreationPage.show();
             spotViewPage.hide();
+            menu.hide()
         } else if (this.state === 6){
             loginPage.hide();
             signupPage.hide();
             mainApp.hide();
             spotCreationPage.hide();
             spotViewPage.show();
+            menu.hide()
         }
     }
 }
@@ -376,4 +383,12 @@ $(document).ready(function(){
         let address = $('#data-spot-address').val();
         createSpotInFirebase(label,address);
     });
+
+    //---------------------//
+    // Navigation Controls //
+    //---------------------// 
+    $(document).on('click','#menu-toggle', function(){
+        $('#menu-list').toggle();
+    });
+
 });

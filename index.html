@@ -33,8 +33,17 @@
     <!-- main application inside which there is a navbar with action options, the map, and the spot widgets -->
     <div id='main-app'>
         <header id="navbar">
-            <div id="menu-button">Menu</div>
-            <div id="logout-button">Logout</div>
+            <div id="menu">
+                <h3 id="menu-toggle">Menu</h3>
+                <div id="menu-list">
+                    <ul>
+                        <li><button id="delete-spots-open">Delete Spots</button></li>
+                        <li><button id="preferences-open">Preferences</button></li>
+                        <li><button id="logout-button">Logout</button></li>
+                    </ul>
+                </div>
+            </div>
+            
             <div id="create-spot-button">Create spot</div>
         </header>
         <!-- Header could give a link to a menu to open settings, delete spots, logout etc -> Step2 -->

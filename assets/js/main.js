@@ -68,33 +68,54 @@ var app_view = {
     }
 }
 
+
+// a user object to store his/her location
+var user = {
+    position: undefined,
+}
+
+var initialDataIsReady = false;
+
 //----------------------------//
 // Geolocalization Management //
 //----------------------------//
-function initMap (){
-    var origin1
-    navigator.geolocation.getCurrentPosition(function(position) {
-        console.log(position.coords.latitude, position.coords.longitude);
-        origin1 = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-        console.log(origin1);
-        var destinationA = '1504 N Bosworth Avenue';
-    
-      var service = new google.maps.DistanceMatrixService();
+
+function getUserLocalization (){
+    navigator.geolocation.getCurrentPosition(function(position){
+        user.position = [];
+        user.position.push(position.coords.latitude, position.coords.longitude);
+        console.log(user.position);
+        spots.getTimeToDestinations();
+    });
+}
+
+function getDurationsToSpots(origin, destinations){
+    let origin1 = new google.maps.LatLng(...origin);
+    var service = new google.maps.DistanceMatrixService();
       service.getDistanceMatrix(
         {
           origins: [origin1],
-          destinations: [destinationA],
+          destinations: destinations,
           travelMode: 'DRIVING',
-        }, callback);
-      });
-    
-      
-      function callback(response, status) {
-        // See Parsing the Results for
-        // the basics of a callback function.
-        console.log(response.rows[0].elements[0].duration.text);
-      }
+        }, onDurationsReceived);
 }
+
+function onDurationsReceived(response, status) {
+    // get the number of destinations
+    let numberOfDestinations = response.rows[0].elements.length;
+    console.log(response.rows[0]);
+    for (let i = 0; i < numberOfDestinations; i++){
+        // assigning the received duration to its spot
+        spots.spotsArray[i].timeTo = response.rows[0].elements[i].duration.text;
+    }
+    // renders the spots to display the durations.
+    spots.render();
+  }
+
+function initMap (){
+    spots.getTimeToDestinations();
+}
+
 
 
 //-------------------------//
@@ -118,13 +139,24 @@ var spots = {
     },
     // used on spotArray, call each individual render
     render: function(){
+        $('#spots').empty();
         for (let spotInstance of this.spotsArray){
-            console.log(spotInstance);
+            spotInstance.render();
         }
     },
     // triggered on a regular interval, asks every spot to update its timeTo value
     updateRoutine: function(){
         // for loop on spotsArray that calls element.updatespotData (for performance improvement, it could call render on all elements but the last, then update information on the last, not sure it is nice though)
+    },
+    getTimeToDestinations: function(){
+        // if google API is ready, and geolocalization is available, and data is received from firebase, then fire the request for distance matrix
+        if (typeof google !== 'undefined' && user.position && initialDataIsReady){
+            let destinationsArray = [];
+            for (spotIter of this.spotsArray){
+                destinationsArray.push(spotIter.address);
+            }
+            getDurationsToSpots(user.position,destinationsArray);
+        }
     },
 }
 
@@ -188,8 +220,8 @@ function createSpotInFirebase(label,address,type,isFavorite){
         type: type ? type : null,
         isFavorite: isFavorite ? isFavorite : null,
     }
-    // [NICE TO HAVE] blocks the UI to avoid multiple ressource creation (killing event on data-spot-create)
-    // [NICE TO HAVE] Waiting screen
+    // TODO: [NICE TO HAVE] blocks the UI to avoid multiple ressource creation (killing event on data-spot-create)
+    // TODO: [NICE TO HAVE] Waiting screen
     // resets creation page UI (empty inputs)
     $('#data-spot-label').val('');
     $('#data-spot-address').val('');
@@ -210,7 +242,11 @@ function listenToSpots (){
         let spotIter = new spot(uid, label, address, type);
         console.log(spotIter);
         spots.spotsArray.push(spotIter);
+        // fetchData will be removed, need to manage asynchronous
         spotIter.fetchData(spotIter.render.bind(spotIter));
+        // change global variable is ready to true, will be used by distance request to ensure firebase data is here
+        initialDataIsReady = true;
+        spots.getTimeToDestinations();
     });
 }
 
@@ -225,6 +261,7 @@ firebase.auth().onAuthStateChanged(function (user) {
         console.log(user.uid);
         console.log(firebase.auth().currentUser.displayName);
         app_view.setState(STATE.MAIN);
+        getUserLocalization();
         listenToSpots();
     } else {
         // goes back to login screen

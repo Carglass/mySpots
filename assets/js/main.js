@@ -9,10 +9,11 @@ var STATE = {
     MAIN_MENU: 4,
     MAIN_CREATE_SPOT: 5,
     MAIN_ZOOM_SPOT: 6,
+    MENU_DELETE_SPOTS: 7,
 }
 
 var app_view = {
-    state: 2,
+    state: 1,
     setState: function(newState){
         //change the state to newState
         this.state = newState;
@@ -26,6 +27,8 @@ var app_view = {
         let mainApp = $('#main-app');
         let spotCreationPage = $('#spot-creation-page');
         let spotViewPage = $('#spot-view-page');
+        let menu = $('#menu-list');
+        let spotsDeletionPage = $('#spots-deletion-page');
         //switch case on state, and shows/hides the appropriate bloc in html
         if (this.state === 1){
             loginPage.show();
@@ -33,37 +36,57 @@ var app_view = {
             mainApp.hide();
             spotCreationPage.hide();
             spotViewPage.hide();
+            menu.hide();
+            spotsDeletionPage.hide();
         } else if (this.state === 2){
             loginPage.hide();
             signupPage.show();
             mainApp.hide();
             spotCreationPage.hide();
             spotViewPage.hide();
+            menu.hide();
+            spotsDeletionPage.hide();
         } else if (this.state === 3){
             loginPage.hide();
             signupPage.hide();
             mainApp.show();
             spotCreationPage.hide();
             spotViewPage.hide();
+            menu.hide();
+            spotsDeletionPage.hide();
         } else if (this.state === 4){
-            // need to add another group for menu
+            // TODO: evaluate if useful, as .toggle() may be able to do the job
             loginPage.hide();
             signupPage.hide();
-            mainApp.hide();
+            mainApp.show();
             spotCreationPage.hide();
             spotViewPage.hide();
+            menu.show();
+            spotsDeletionPage.hide();
         } else if (this.state === 5){
             loginPage.hide();
             signupPage.hide();
             mainApp.hide();
             spotCreationPage.show();
             spotViewPage.hide();
+            menu.hide()
+            spotsDeletionPage.hide();
         } else if (this.state === 6){
             loginPage.hide();
             signupPage.hide();
             mainApp.hide();
             spotCreationPage.hide();
             spotViewPage.show();
+            menu.hide()
+            spotsDeletionPage.hide();
+        } else if (this.state === 7){
+            loginPage.hide();
+            signupPage.hide();
+            mainApp.hide();
+            spotCreationPage.hide();
+            spotViewPage.hide();
+            menu.hide()
+            spotsDeletionPage.show();
         }
     }
 }
@@ -95,6 +118,10 @@ function getUserLocalization (){
     });
 }
 
+//--------------------------//
+// Request to get durations //
+//--------------------------//
+
 function getDurationsToSpots(origin, destinations){
     // converting latitude and longitude from Geoloc into a google object
     let origin1 = new google.maps.LatLng(...origin);
@@ -113,7 +140,7 @@ function getDurationsToSpots(origin, destinations){
 }
 
 function onDurationsReceived(response, status) {
-    // get the number of destinations
+    // get the number of duration
     let numberOfDestinations = response.rows[0].elements.length;
     console.log(response.rows[0]);
     for (let i = 0; i < numberOfDestinations; i++){
@@ -124,11 +151,13 @@ function onDurationsReceived(response, status) {
     spots.render();
   }
 
+//----------------------//
+// Google Maps API Init //
+//----------------------//
+
 function initMap (){
     spots.getTimeToDestinations();
 }
-
-
 
 //-------------------------//
 // FireBase Initialization //
@@ -136,9 +165,9 @@ function initMap (){
 
 var database = firebase.database();
 
-//----------------------//
+//------------------//
 // spots Management //
-//----------------------//
+//------------------//
 
 var spots = {
     // spotArray stores the spot objects for a quick access, sorting etc
@@ -172,6 +201,32 @@ var spots = {
             getDurationsToSpots(user.position,destinationsArray);
         }
     },
+    renderForDeletion: function(){
+        $('#spots-deletion-list').empty();
+        for (let spotInstance of this.spotsArray){
+            console.log(spotInstance.uid);
+            // creating the elements
+            let liContainer = $('<li></li>');
+            let labelContainer = $('<div></div>');
+            let checkboxContainer = $('<input></input>');
+            // adding data-*
+            checkboxContainer.attr('data-deletion-spotid', spotInstance.uid);
+            //adding input type
+            checkboxContainer.attr('type', 'checkbox');
+            // adding classes
+                // this one is for control
+            checkboxContainer.addClass('deletionCheckbox');
+                //those are for style
+            liContainer.addClass('liDeletion');
+            labelContainer.addClass('spotLabelDeletion');
+            checkboxContainer.addClass('spotCheckboxDeletion');
+            // adding Content
+            labelContainer.text(spotInstance.label);
+            // pushing the element to HTML
+            liContainer.append(labelContainer).append(checkboxContainer);
+            $('#spots-deletion-list').append(liContainer);
+        }
+    },
 }
 
 // spot Object constructor, called on child_added
@@ -199,6 +254,7 @@ function spot(uid,label,address,type,isFavorite){
         let spotElement = $('<div></div>');
         let spotElementLabel = $('<div></div>');
         let spotElementTimeTo = $('<div></div');
+        // TODO: create data-* and change Class name to remove dashes
         // adding ids
         spotElement.attr('id','spot' + this.uid);
         spotElementLabel.attr('id','spot' + this.uid + '-label');
@@ -220,9 +276,9 @@ function spot(uid,label,address,type,isFavorite){
     };
 };
 
-//----------------------//
-// spots Management //
-//----------------------//
+//----------------------------------------//
+// spots Creation Management with Firebase//
+//----------------------------------------//
 
 // function that will be triggered by a click on data-spot-create
 function createSpotInFirebase(label,address,type,isFavorite){
@@ -248,7 +304,7 @@ function createSpotInFirebase(label,address,type,isFavorite){
     });
 }
 
-function listenToSpots (){
+function listenToSpotsCreation (){
     database.ref('users/' + firebase.auth().currentUser.uid + '/locations').on("child_added", function(snapshot){
         let uid = snapshot.key;
         let label = snapshot.val().label;
@@ -267,6 +323,36 @@ function listenToSpots (){
     });
 }
 
+//---------------------------//
+// Spots Deletion Management //
+//---------------------------//
+
+function deleteSpotsFromFirebase(){
+    for (let i = 0; i < spots.spotsArray.length; i++){
+        let isToBeDeleted = $("input[data-deletion-spotid='" + spots.spotsArray[i].uid +"']").is(":checked");
+        if (isToBeDeleted){
+            database.ref('users/' + firebase.auth().currentUser.uid + '/locations/' + spots.spotsArray[i].uid).remove().then(function(){
+                app_view.setState(STATE.MAIN);
+            });
+        }
+    }
+}
+
+function listenToSpotsDeletion (){
+    database.ref('users/' + firebase.auth().currentUser.uid + '/locations').on("child_removed", function(snapshot){
+        let deletedUid = snapshot.key;
+        let tempSpotsArray = spots.spotsArray.slice();
+        for (let i = 0; i < spots.spotsArray.length; i++){
+            if (spots.spotsArray[i].uid === deletedUid){
+                // TODO: Understand why it works, it should not as the index i is not
+                // the good one after the first splice
+                tempSpotsArray.splice(i,1);
+            }
+        }
+        spots.spotsArray = tempSpotsArray;
+        spots.render();
+    });
+}
 
 //-------------------------//
 // Login Logout Management //
@@ -282,7 +368,8 @@ firebase.auth().onAuthStateChanged(function (user) {
         app_view.setState(STATE.MAIN);
         // 
         getUserLocalization();
-        listenToSpots();
+        listenToSpotsCreation();
+        listenToSpotsDeletion();
     } else {
         // reinitialize data held in the runtime
         for (let spotIter of spots.spotsArray){
@@ -305,6 +392,7 @@ firebase.auth().onAuthStateChanged(function (user) {
 $(document).ready(function(){
     // used for testing purpose, to set environement in main app, to skip login
     app_view.render();
+    $('#menu-toggle').data('champion','yo');
 
     //---------------//
     // Auth Controls //
@@ -376,4 +464,32 @@ $(document).ready(function(){
         let address = $('#data-spot-address').val();
         createSpotInFirebase(label,address);
     });
+
+    //------------------------//
+    // Spot Deletion Controls //
+    //------------------------//   
+    
+    $(document).on('click','#delete-spots-open',function(){
+        // generate the list of spots for deletion
+        spots.renderForDeletion();
+        // moves to delete spots page
+        app_view.setState(STATE.MENU_DELETE_SPOTS);
+    });
+
+    $(document).on('click','#spots-deletion-back',function(){
+        app_view.setState(STATE.MAIN);
+    });
+
+    $(document).on('click','#spot-deletion-confirm',function(){
+        deleteSpotsFromFirebase();
+    });
+
+
+    //---------------------//
+    // Navigation Controls //
+    //---------------------// 
+    $(document).on('click','#menu-toggle', function(){
+        $('#menu-list').toggle();
+    });
+
 });

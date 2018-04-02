@@ -178,3 +178,13 @@ $(document).ready(function(){
         createSpotInFirebase(label,address);
     });
 });
+
+
+//-----------------------------//
+// SIDE BAR MENU ON MAIN PAGE //
+//---------------------------//
+document.getElementById("mySidenav").style.width = "250px";
+
+function closeNav() {
+    document.getElementById("mySidenav").style.width = "0";
+}

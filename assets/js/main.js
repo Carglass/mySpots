@@ -157,6 +157,7 @@ function onDurationsReceived(response, status) {
 
 function initMap (){
     spots.getTimeToDestinations();
+    activateAutoComplete();
 }
 
 //-------------------------//
@@ -280,6 +281,8 @@ function spot(uid,label,address,type,isFavorite){
 // spots Creation Management with Firebase//
 //----------------------------------------//
 
+
+
 // function that will be triggered by a click on data-spot-create
 function createSpotInFirebase(label,address,type,isFavorite){
     console.log('createspotInFirebase runs');
@@ -302,6 +305,14 @@ function createSpotInFirebase(label,address,type,isFavorite){
         // [NICE TO HAVE] also needs to reactivate data-spot-create
         // [NICE TO HAVE] hides waiting screen
     });
+}
+
+// autocomplete module 'powered by Google'
+function activateAutoComplete(){
+    var input = document.getElementById('data-spot-address');
+    var options = {
+    };
+    autocomplete = new google.maps.places.Autocomplete(input, options);    
 }
 
 function listenToSpotsCreation (){

@@ -31,9 +31,9 @@
         <button id="signup-submit">Submit</button>
     </div>
     <!-- main application inside which there is a navbar with action options, the map, and the spot widgets -->
-    <div id='main-app'>
-        <header id="navbar">
-            <div id="menu">
+    <div id='main-app' class="container">
+        <header id="navbar" class="row">
+            <div id="menu" class="col-2">
                 <h3 id="menu-toggle">Menu</h3>
                 <div id="menu-list">
                     <ul>
@@ -44,17 +44,25 @@
                 </div>
             </div>
             
-            <div id="create-spot-button">Create spot</div>
+            <div id="create-spot-button" class="col-2">Create spot</div>
         </header>
         <!-- Header could give a link to a menu to open settings, delete spots, logout etc -> Step2 -->
-        <section id="map">Map</section>
-        <section id="spots"></section>
+        <section id="map" class="row">Map</section>
+        <section id="spots" class="row"></section>
     </div>
     <!-- spot Creation Page -->
     <div id="spot-creation-page">
         <input type="text" id="data-spot-label">
         <input type="text" id="data-spot-address">
         <button id="data-spot-create">Submit</button>
+    </div>
+    <!-- Spots Deletion Page -->
+    <div id="spots-deletion-page">
+        <button id="spots-deletion-back">Back to Main</button>
+        <h3>Select Spots to delete</h3>
+        <ul id="spots-deletion-list">
+        </ul>
+        <button id="spot-deletion-confirm">Confirm deletion</button>
     </div>
     <!-- Look up into one spot, information to show to be determined -->
     <div id="spot-view-page">

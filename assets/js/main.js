@@ -261,7 +261,7 @@ function spot(uid,label,address,type,isFavorite){
         spotElementLabel.attr('id','spot' + this.uid + '-label');
         spotElementTimeTo.attr('id','spot' +this.uid + '-timeTo');
         // adding classes
-        spotElement.addClass('spot');
+        spotElement.addClass('spot').addClass('col-12');
         spotElementLabel.addClass('spot-label');
         spotElementTimeTo.addClass('spot-timeTo');
         // adding Content

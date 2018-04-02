@@ -10,6 +10,7 @@ var STATE = {
     MAIN_CREATE_SPOT: 5,
     MAIN_ZOOM_SPOT: 6,
     MENU_DELETE_SPOTS: 7,
+    MENU_PREFERENCES: 8,
 }
 
 var app_view = {
@@ -29,6 +30,7 @@ var app_view = {
         let spotViewPage = $('#spot-view-page');
         let menu = $('#menu-list');
         let spotsDeletionPage = $('#spots-deletion-page');
+        let preferencesPage = $('#preferences-page');
         //switch case on state, and shows/hides the appropriate bloc in html
         if (this.state === 1){
             loginPage.show();
@@ -38,6 +40,7 @@ var app_view = {
             spotViewPage.hide();
             menu.hide();
             spotsDeletionPage.hide();
+            preferencesPage.hide();
         } else if (this.state === 2){
             loginPage.hide();
             signupPage.show();
@@ -46,6 +49,7 @@ var app_view = {
             spotViewPage.hide();
             menu.hide();
             spotsDeletionPage.hide();
+            preferencesPage.hide();
         } else if (this.state === 3){
             loginPage.hide();
             signupPage.hide();
@@ -54,6 +58,7 @@ var app_view = {
             spotViewPage.hide();
             menu.hide();
             spotsDeletionPage.hide();
+            preferencesPage.hide();
         } else if (this.state === 4){
             // TODO: evaluate if useful, as .toggle() may be able to do the job
             loginPage.hide();
@@ -63,6 +68,7 @@ var app_view = {
             spotViewPage.hide();
             menu.show();
             spotsDeletionPage.hide();
+            preferencesPage.hide();
         } else if (this.state === 5){
             loginPage.hide();
             signupPage.hide();
@@ -71,6 +77,7 @@ var app_view = {
             spotViewPage.hide();
             menu.hide()
             spotsDeletionPage.hide();
+            preferencesPage.hide();
         } else if (this.state === 6){
             loginPage.hide();
             signupPage.hide();
@@ -79,6 +86,7 @@ var app_view = {
             spotViewPage.show();
             menu.hide()
             spotsDeletionPage.hide();
+            preferencesPage.hide();
         } else if (this.state === 7){
             loginPage.hide();
             signupPage.hide();
@@ -87,14 +95,39 @@ var app_view = {
             spotViewPage.hide();
             menu.hide()
             spotsDeletionPage.show();
-        }
+            preferencesPage.hide();
+        } else if (this.state === 8){
+            loginPage.hide();
+            signupPage.hide();
+            mainApp.hide();
+            spotCreationPage.hide();
+            spotViewPage.hide();
+            menu.hide()
+            spotsDeletionPage.hide();
+            preferencesPage.show();
+        } 
     }
 }
 
 
-// a user object to store his/her location
+// a user object to store his/her location, preferences etc
 var user = {
     position: undefined,
+    preferences: {
+        transportMode: 'DRIVING',
+    },
+    renderPreferences: function(){
+        // render transport Mode to its initial value
+        if (this.preferences.transportMode === 'DRIVING'){
+            $('#transport-mode-select').val('DRIVING');
+        } else if (this.preferences.transportMode === 'WALKING'){
+            $('#transport-mode-select').val('WALKING');
+        } else if (this.preferences.transportMode === 'BICYCLING'){
+            $('#transport-mode-select').val('BIKING');
+        } else if (this.preferences.transportMode === 'TRANSIT'){
+            $('#transport-mode-select').val('TRANSIT');
+        }
+    },
 }
 
 // creates this global variable to indicate that data has not been loaded from Firebase yet
@@ -106,6 +139,7 @@ var initialDataIsReady = false;
 
 // function that gets the user location from the navigator API (accessing whatever the navigator uses Wifi, GPS etc)
 // TODO: could be improved to WATCH the location, thus allowing for updates based on user movement
+// TODO: move it into user
 function getUserLocalization (){
     navigator.geolocation.getCurrentPosition(function(position){
         user.position = [];
@@ -135,7 +169,7 @@ function getDurationsToSpots(origin, destinations){
           destinations: destinations,
           // by default we ask for driving durations
           // TODO: have a setting to select the favorite mode of transport
-          travelMode: 'DRIVING',
+          travelMode: user.preferences.transportMode,
         }, onDurationsReceived);
 }
 
@@ -379,6 +413,7 @@ firebase.auth().onAuthStateChanged(function (user) {
         app_view.setState(STATE.MAIN);
         // 
         getUserLocalization();
+        //TODO: get user preferences
         listenToSpotsCreation();
         listenToSpotsDeletion();
     } else {
@@ -493,6 +528,21 @@ $(document).ready(function(){
 
     $(document).on('click','#spot-deletion-confirm',function(){
         deleteSpotsFromFirebase();
+    });
+
+    //----------------------//
+    // Preferences Controls //
+    //----------------------// 
+
+    $(document).on('click','#preferences-open',function(){
+        // shall generate the page with the current preferences
+        user.renderPreferences();
+        // moves to preferences page
+        app_view.setState(STATE.MENU_PREFERENCES);
+    });
+
+    $(document).on('click','#preferences-back',function(){
+        app_view.setState(STATE.MAIN);
     });
 
 

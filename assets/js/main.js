@@ -200,6 +200,16 @@ function initMap (){
 
 var database = firebase.database();
 
+//------------------------//
+// Preferences Management //
+//------------------------//
+
+//TODO: need a value added to load preferences at load
+
+//TODO: need a value changed to manage preferences change
+
+//TODO: find a way to initialize preferences when user is created
+
 //------------------//
 // spots Management //
 //------------------//
@@ -413,7 +423,7 @@ firebase.auth().onAuthStateChanged(function (user) {
         app_view.setState(STATE.MAIN);
         // 
         getUserLocalization();
-        //TODO: get user preferences
+        //TODO: get user preferences, probably by listening to the value added in preferences
         listenToSpotsCreation();
         listenToSpotsDeletion();
     } else {
@@ -456,7 +466,9 @@ $(document).ready(function(){
             var errorMessage = error.message;
             console.log(errorCode + '   ' + errorMessage);
           }).then(function(user){
+              // update the user name display name using a dork interface
               user.updateProfile({displayName: name});
+              // reset the values in the fields
               $('#user-create-display').val('');
               $('#user-create-email').val('');
               $('#user-create-password').val('');
@@ -476,7 +488,6 @@ $(document).ready(function(){
           });
           $('#user-email').val('');
           $('#user-password').val('');
-          //should call for the list of locations
     });
 
     //event to launch sign up

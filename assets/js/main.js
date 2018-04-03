@@ -286,9 +286,9 @@ function spot(uid,label,address,type,isFavorite){
     this.timeTo = 0;
     // function that go fetch data, then assign them to properties
     this.fetchData = function(callback){
-        // TODO: maybe think about suppressing it, as the request for durations is done on spots directly
-        //for test only
-        this.timeTo = '10 min';
+        // TODO: maybe think about suppressing it, as the request for durations is done on spots directly 
+        //for test only 
+        this.timeTo = '-- min'; 
         //callback may need an existence test before being called as it is optional
         callback();
     };
@@ -343,8 +343,8 @@ function createSpotInFirebase(label,address,type,isFavorite){
     // resets creation page UI (empty inputs)
     $('#data-spot-label').val('');
     $('#data-spot-address').val('');
-    // creates ressource in Firebase, once we get the confirmation it is done, goes back to main page
-    database.ref('users/' + firebase.auth().currentUser.uid + '/locations').push(newSpot, function(){
+    // creates ressource in Firebase, once we get the confirmation it is done, goes back to main page 
+    database.ref('users/' + firebase.auth().currentUser.uid + '/locations').push(newSpot, function(){ 
         app_view.setState(STATE.MAIN);
         // [NICE TO HAVE] also needs to reactivate data-spot-create
         // [NICE TO HAVE] hides waiting screen
@@ -460,19 +460,28 @@ $(document).ready(function(){
         let name = $('#user-create-display').val();
         let email = $('#user-create-email').val();
         let password = $('#user-create-password').val();
-        firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
-            // Handle Errors here.
-            var errorCode = error.code;
-            var errorMessage = error.message;
-            console.log(errorCode + '   ' + errorMessage);
-          }).then(function(user){
-              // update the user name display name using a dork interface
-              user.updateProfile({displayName: name});
-              // reset the values in the fields
-              $('#user-create-display').val('');
-              $('#user-create-email').val('');
-              $('#user-create-password').val('');
-          });
+        let passwordConfirm = $('#user-create-password-confirm').val();
+
+            if (password === passwordConfirm) {
+                firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
+                    // Handle Errors here.
+                    var errorCode = error.code;
+                    var errorMessage = error.message;
+                    console.log(errorCode + '   ' + errorMessage);
+                  }).then(function(user){
+                      // update the user name display name using a dork interface
+                      user.updateProfile({displayName: name});
+                      // reset the values in the fields
+                      $('#user-create-display').val('');
+                      $('#user-create-email').val('');
+                      $('#user-create-password').val('');
+                  });
+            }
+            else {
+                alert("Passwords do not match. Please re-enter password.")
+            }
+
+
     });
 
     //event to login

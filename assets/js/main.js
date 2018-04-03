@@ -194,6 +194,15 @@ function initMap (){
     activateAutoComplete();
 }
 
+
+
+
+
+
+
+
+
+
 //-------------------------//
 // FireBase Initialization //
 //-------------------------//
@@ -286,10 +295,7 @@ function spot(uid,label,address,type,isFavorite){
     this.timeTo = 0;
     // function that go fetch data, then assign them to properties
     this.fetchData = function(callback){
-        // TODO: maybe think about suppressing it, as the request for durations is done on spots directly
-        //for test only
-        this.timeTo = '10 min';
-        //callback may need an existence test before being called as it is optional
+        // code goes here
         callback();
     };
     // function that renders the spot
@@ -343,8 +349,8 @@ function createSpotInFirebase(label,address,type,isFavorite){
     // resets creation page UI (empty inputs)
     $('#data-spot-label').val('');
     $('#data-spot-address').val('');
-    // creates ressource in Firebase, once we get the confirmation it is done, goes back to main page
-    database.ref('users/' + firebase.auth().currentUser.uid + '/locations').push(newSpot, function(){
+    // creates resource in Firebase, once we get the confirmation it is done, goes back to main page
+    database.ref('users/max/locations').push(newSpot, function(){
         app_view.setState(STATE.MAIN);
         // [NICE TO HAVE] also needs to reactivate data-spot-create
         // [NICE TO HAVE] hides waiting screen

@@ -5,57 +5,109 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>mySpots</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+<<<<<<< HEAD
+    <link rel="stylesheet" type="text/css" href="../mySpots/assets/css/reset.css">
+
+    <link rel="stylesheet" type="text/css" href="../mySpots/assets/css/main.css">
+    <link rel="stylesheet" type="text/css" href="../mySpots/assets/css/bootstrap.min.css">
+
+=======
+    <link rel="stylesheet" type="text/css" href="./assets/css/reset.css">
     <link rel="stylesheet" type="text/css" href="./assets/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="./assets/css/main.css">
+>>>>>>> 0fdb59f5033b53c56787dce2dc117133901b972c
     <link href="https://fonts.googleapis.com/css?family=Istok+Web" rel="stylesheet">
 </head>
 <body>
     <!-- Initial Page to login -->
-    <div class="container">
-    <div class="login-button" id="login-page">
-        <p class="login-text"> Login to MySpots or Create a Free Account!
+    <div class="container-style" id="login-page">
+    <div class="display-box">
+        <p class="login-signup-text"> Login to MySpots or sign up now <br>to make your free account!
     </p>
-        <input class="email-style" type="email" id="user-email">
-        <input class="password-style" type="password" id="user-password">
+        <input class="input-style" placeholder="email" type="email" id="user-email">
+        <input class="input-style" placeholder="password" type="password" id="user-password">
         <br>
-        <button class="login-button-style" id="login-button">Login</button>
-        <button class="signup-button-style" id="signup-button">Sign Up</button>
+        <button class="button-style" id="login-button">Login</button>
+        <button class="button-style" id="signup-button">Sign Up Now</button>
     </div>
 </div>
     
     <!-- Page to Sign Up -->
-    <div id="signup-page">
-        <input type="text" id='user-create-display'>
-        <input type="email" id="user-create-email">
-        <input type="password" id="user-create-password">
-        <input type="password" id="user-create-password-confirm">
-        <button id="signup-submit">Submit</button>
-    </div>
+
+      <div class="container-style" id="signup-page">
+    <div class="display-box">
+        <p class="login-signup-text"> Sign in to your MySpots</p>
+        <input class="input-style" type="text" placeholder="name" id='user-create-display'>
+        <input class="input-style" type="email" placeholder="email" id="user-create-email">
+        <br>
+        <input class="input-style" type="password" placeholder="password" id="user-create-password">
+        <input class="input-style" type="password" placeholder="confirm password" id="user-create-password-confirm">
+        <br>
+        <button class="button-style" id="signup-submit">Submit</button>
+</div>
+</div>
     <!-- main application inside which there is a navbar with action options, the map, and the spot widgets -->
     <div id='main-app' class="container">
-        <header id="navbar" class="row">
+        <p class="main-page-top">MySpots</p>
+        <p class="main-page-sub">Keep track of your favorite spots and log your routes.</p>
+        <header class="create-spot-shortcut" id="navbar" class="row">
             <div id="menu" class="col-2">
-                <h3 id="menu-toggle">Menu</h3>
-                <div id="menu-list">
+                <!-- Menu toggle is here, to display the different elements -->
+                <h3 class="menu-title" id="menu-toggle">Menu</h3>
+                <div class="menu-style" id="menu-list">
                     <ul>
-                        <li><button id="delete-spots-open">Delete Spots</button></li>
-                        <li><button id="preferences-open">Preferences</button></li>
-                        <li><button id="logout-button">Logout</button></li>
+                        <li><button class="menu-button" id="delete-spots-open">Delete Spots</button></li>
+                        <li><button class="menu-button" id="preferences-open">Preferences</button></li>
+                        <li><button class="menu-button" id="logout-button">Logout</button></li>
                     </ul>
                 </div>
             </div>
-            
-            <div id="create-spot-button" class="col-2">Create spot</div>
+            <div id="create-spot-button" class="col-2" data-toggle="modal" data-target="#exampleModal">Create spot</div>
         </header>
-        <!-- Header could give a link to a menu to open settings, delete spots, logout etc -> Step2 -->
         <section id="map" class="row">Map</section>
         <section id="spots" class="row"></section>
     </div>
+</header>
+
+
     <!-- spot Creation Page -->
     <div id="spot-creation-page">
-        <input type="text" id="data-spot-label">
-        <input type="text" id="data-spot-address">
-        <button id="data-spot-create">Submit</button>
+
+        <!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Create New Spot</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+                    <div class="form-group">
+                   
+                    <input type="text" id="data-spot-label" placeholder="Enter New Spot">
+                    </div>
+                    <div class="form-group">
+                    
+                    <input type="text" id="data-spot-address" placeholder="Enter Address">
+                    </div>
+                    <div class="form-group">
+                    <button type="button" class="btn btn-primary" id="data-spot-create">Submit</button>
+                    </div>
+            </div>
+            
+          </div>
+        </div>
+      </div>
+    
+         
+   
+       
+   
+
+       
+        
     </div>
     <!-- Spots Deletion Page -->
     <div id="spots-deletion-page">
@@ -64,6 +116,17 @@
         <ul id="spots-deletion-list">
         </ul>
         <button id="spot-deletion-confirm">Confirm deletion</button>
+    </div>
+    <!-- Preferences Page -->
+    <div id="preferences-page">
+        <button id="preferences-back">Back to Main</button>
+        <select id="transport-mode-select"> 
+            <option value="DRIVING">Driving</option> 
+            <option value="WALKING">Walking</option>
+            <option value="BICYCLING">Biking</option>
+            <option value="TRANSIT">Public Transport</option>
+        </select>
+        <button id="preferences-confirm">Confirm Preferences</button>
     </div>
     <!-- Look up into one spot, information to show to be determined -->
     <div id="spot-view-page">
@@ -85,7 +148,11 @@
     </script>
     <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBlJyxmuoUkTYqiOo5Kqf68m1oESPjssTk&libraries=places&callback=initMap"
     type="text/javascript"></script>
+
     <script src="./assets/js/jquery-3.3.1.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
     <script src="./assets/js/main.js"></script>
 
 </body>

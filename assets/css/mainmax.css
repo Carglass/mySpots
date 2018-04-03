@@ -3,3 +3,6 @@
     justify-content: space-between;
 }
 
+
+.spots .spot:nth-child(2n+1) { background: #ccc; }
+

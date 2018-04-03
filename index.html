@@ -7,16 +7,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" href="./assets/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="./assets/css/main.css">
+    <link rel="stylesheet" type="text/css" href="./assets/css/reset.css">
     <link href="https://fonts.googleapis.com/css?family=Istok+Web" rel="stylesheet">
 </head>
 <body>
     <!-- Initial Page to login -->
-    <div class="container">
-    <div class="login-button" id="login-page">
-        <p class="login-text"> Login to MySpots or Create a Free Account!
-    </p>
-        <input class="email-style" type="email" id="user-email">
-        <input class="password-style" type="password" id="user-password">
+    <div class="login-container" id="login-page">
+    <div class="login-button" >
+        <p class="login-text"> Login to MySpots or sign up now to make your free account!
+    </p><br>
+        <input class="email-style" placeholder="email" type="email" id="user-email">
+        <input class="password-style" placeholder="password" type="password" id="user-password">
+
         <br>
         <button class="login-button-style" id="login-button">Login</button>
         <button class="signup-button-style" id="signup-button">Sign Up</button>
@@ -24,17 +26,22 @@
 </div>
     
     <!-- Page to Sign Up -->
-    <div id="signup-page">
+
+      <div class="signup-container" id="signup-page">
+    <div class="signup-button">
+      <p class="signup-text">Sign in to your MySpots</p>
         <input type="text" id='user-create-display'>
-        <input type="email" id="user-create-email">
-        <input type="password" id="user-create-password">
-        <input type="password" id="user-create-password-confirm">
-        <button id="signup-submit">Submit</button>
-    </div>
+        <input class="signup-email-style" type="email" placeholder="email" id="user-create-email">
+        <input class="signup-password-style" type="password" placeholder="password" id="user-create-password">
+        <input class="signup-passwordconfirm-style" type="password" placeholder="confirm password" id="user-create-password-confirm">
+        <button class="signup-page-button" id="signup-submit">Submit</button>
+</div>
+</div>
     <!-- main application inside which there is a navbar with action options, the map, and the spot widgets -->
     <div id='main-app' class="container">
         <header id="navbar" class="row">
             <div id="menu" class="col-2">
+                <!-- Menu toggle is here, to display the different elements -->
                 <h3 id="menu-toggle">Menu</h3>
                 <div id="menu-list">
                     <ul>
@@ -44,13 +51,14 @@
                     </ul>
                 </div>
             </div>
-            
             <div id="create-spot-button" class="col-2">Create spot</div>
         </header>
-        <!-- Header could give a link to a menu to open settings, delete spots, logout etc -> Step2 -->
         <section id="map" class="row">Map</section>
         <section id="spots" class="row"></section>
     </div>
+</header>
+
+
     <!-- spot Creation Page -->
     <div id="spot-creation-page">
         <input type="text" id="data-spot-label">
@@ -64,6 +72,17 @@
         <ul id="spots-deletion-list">
         </ul>
         <button id="spot-deletion-confirm">Confirm deletion</button>
+    </div>
+    <!-- Preferences Page -->
+    <div id="preferences-page">
+        <button id="preferences-back">Back to Main</button>
+        <select id="transport-mode-select"> 
+            <option value="DRIVING">Driving</option> 
+            <option value="WALKING">Walking</option>
+            <option value="BICYCLING">Biking</option>
+            <option value="TRANSIT">Public Transport</option>
+        </select>
+        <button id="preferences-confirm">Confirm Preferences</button>
     </div>
     <!-- Look up into one spot, information to show to be determined -->
     <div id="spot-view-page">

@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>mySpots</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="./assets/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="./assets/css/main.css">
     <link rel="stylesheet" type="text/css" href="./assets/css/reset.css">
     <link href="https://fonts.googleapis.com/css?family=Istok+Web" rel="stylesheet">
@@ -15,8 +16,9 @@
     <div class="login-button" id="login-page">
         <p class="login-text"> Login to MySpots or sign up now to make your free account!
     </p><br>
-        <input class="email-style" placeholder="email" type="email" name="user-email">
-        <input class="password-style" placeholder="password" type="password" name="user-password">
+        <input class="email-style" placeholder="email" type="email" id="user-email">
+        <input class="password-style" placeholder="password" type="password" id="user-password">
+
         <br>
         <button class="login-button-style" id="login-button">Login</button>
         <button class="signup-button-style" id="signup-button">Sign Up</button>
@@ -24,44 +26,35 @@
 </div>
     
     <!-- Page to Sign Up -->
-    <div class="signup-container">
-    <div class="signup-button" id="signup-page">
-            <p class="signup-text">Sign in to your MySpots</p>
+
+      <div class="signup-container" id="signup-page">
+    <div class="signup-button">
+      <p class="signup-text">Sign in to your MySpots</p>
+        <input type="text" id='user-create-display'>
         <input class="signup-email-style" type="email" placeholder="email" id="user-create-email">
         <input class="signup-password-style" type="password" placeholder="password" id="user-create-password">
         <input class="signup-passwordconfirm-style" type="password" placeholder="confirm password" id="user-create-password-confirm">
         <button class="signup-page-button" id="signup-submit">Submit</button>
-    </div>
+</div>
 </div>
     <!-- main application inside which there is a navbar with action options, the map, and the spot widgets -->
-    <div class="mainpage" id='main-app'>
-            <div class="mainpagetitle">MySpots</div>
-            <div class="mainpagesub">Keep track of your favorite spots and log your routes.</div>
-            <br><br>
-            <div class="googlemapslayouthere">Google Maps goes here</div>
-            <div class="style-spot-button" id="create-spot-button">Create a new spot</div>     
-            <div class="favorite-spots">Home</div>
-            <div class="favorite-spots-two">School</div>
-            <div class="favorite-spots">Gym</div>
-            <div class="favorite-spots-two">Store</div>
-            <div id="mySidenav" class="sidenav">
-                    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-                    <a href="app_view.setState(STATE.MAIN_CREATE_SPOT)">Add a new spot</a>
-                    <a href="#">View favorited spots</a>
-                    <a href="#">Remove a spot</a>
-                    <a href="#">Create a new route</a>
-                    <a href="#">View Map</a>
-                    <a href="#">Settings</a>
-                    <a href="#"Logout</a>
-                  </div>
-                  <span class="opennav">&#9776; Menu</span>
-         
-                  <header id="navbar">
-                  <div id="menu-button">Menu</div>
-   
-        <!-- Header could give a link to a menu to open settings, delete spots, logout etc -> Step2 -->
-                  <section id="map">Map</section>
-                  <section id="spots"></section> 
+    <div id='main-app' class="container">
+        <header id="navbar" class="row">
+            <div id="menu" class="col-2">
+                <!-- Menu toggle is here, to display the different elements -->
+                <h3 id="menu-toggle">Menu</h3>
+                <div id="menu-list">
+                    <ul>
+                        <li><button id="delete-spots-open">Delete Spots</button></li>
+                        <li><button id="preferences-open">Preferences</button></li>
+                        <li><button id="logout-button">Logout</button></li>
+                    </ul>
+                </div>
+            </div>
+            <div id="create-spot-button" class="col-2">Create spot</div>
+        </header>
+        <section id="map" class="row">Map</section>
+        <section id="spots" class="row"></section>
     </div>
 </header>
 
@@ -71,6 +64,25 @@
         <input type="text" id="data-spot-label">
         <input type="text" id="data-spot-address">
         <button id="data-spot-create">Submit</button>
+    </div>
+    <!-- Spots Deletion Page -->
+    <div id="spots-deletion-page">
+        <button id="spots-deletion-back">Back to Main</button>
+        <h3>Select Spots to delete</h3>
+        <ul id="spots-deletion-list">
+        </ul>
+        <button id="spot-deletion-confirm">Confirm deletion</button>
+    </div>
+    <!-- Preferences Page -->
+    <div id="preferences-page">
+        <button id="preferences-back">Back to Main</button>
+        <select id="transport-mode-select"> 
+            <option value="DRIVING">Driving</option> 
+            <option value="WALKING">Walking</option>
+            <option value="BICYCLING">Biking</option>
+            <option value="TRANSIT">Public Transport</option>
+        </select>
+        <button id="preferences-confirm">Confirm Preferences</button>
     </div>
     <!-- Look up into one spot, information to show to be determined -->
     <div id="spot-view-page">
@@ -90,6 +102,8 @@
     };
     firebase.initializeApp(config);
     </script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBlJyxmuoUkTYqiOo5Kqf68m1oESPjssTk&libraries=places&callback=initMap"
+    type="text/javascript"></script>
     <script src="./assets/js/jquery-3.3.1.js"></script>
     <script src="./assets/js/main.js"></script>
 

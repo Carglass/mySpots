@@ -567,11 +567,3 @@ $(document).ready(function(){
 });
 
 
-//-----------------------------//
-// SIDE BAR MENU ON MAIN PAGE //
-//---------------------------//
-document.getElementById("mySidenav").style.width = "250px";
-
-function closeNav() {
-    document.getElementById("mySidenav").style.width = "0";
-}

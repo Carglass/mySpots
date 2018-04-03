@@ -122,11 +122,26 @@ var user = {
             $('#transport-mode-select').val('DRIVING');
         } else if (this.preferences.transportMode === 'WALKING'){
             $('#transport-mode-select').val('WALKING');
-        } else if (this.preferences.transportMode === 'BICYCLING'){
+        } else if (this.preferences.transportMode === 'BIKING'){
             $('#transport-mode-select').val('BIKING');
         } else if (this.preferences.transportMode === 'TRANSIT'){
             $('#transport-mode-select').val('TRANSIT');
         }
+    },
+    updatePreferencesIntoFirebase: function(newPreferences){
+        database.ref('users/' + firebase.auth().currentUser.uid + '/preferences').set(newPreferences, function(){
+            app_view.setState(STATE.MAIN);
+            // [NICE TO HAVE] also needs to reactivate data-spot-create
+            // [NICE TO HAVE] hides waiting screen
+        });
+    },
+    getPreferencesFromFirebase: function(){
+        database.ref('users/' + firebase.auth().currentUser.uid + '/preferences').on("value", function(snapshot){
+            console.log(snapshot.val());
+            let updatedPreferences = snapshot.val();
+            user.preferences = updatedPreferences;
+            spots.getTimeToDestinations();
+        });
     },
 }
 
@@ -346,8 +361,8 @@ function createSpotInFirebase(label,address,type,isFavorite){
     // creates ressource in Firebase, once we get the confirmation it is done, goes back to main page
     database.ref('users/' + firebase.auth().currentUser.uid + '/locations').push(newSpot, function(){
         app_view.setState(STATE.MAIN);
-        // [NICE TO HAVE] also needs to reactivate data-spot-create
-        // [NICE TO HAVE] hides waiting screen
+        // TODO: [NICE TO HAVE] also needs to reactivate data-spot-create
+        // TODO: [NICE TO HAVE] hides waiting screen
     });
 }
 
@@ -414,16 +429,16 @@ function listenToSpotsDeletion (){
 //-------------------------//
 
 //listener on connection/disconnection
-firebase.auth().onAuthStateChanged(function (user) {
+firebase.auth().onAuthStateChanged(function (connectedUser) {
     // test on user to know if a user is connected
-    if (user) {
-        console.log(user.uid);
+    if (connectedUser) {
+        console.log(connectedUser.uid);
         console.log(firebase.auth().currentUser.displayName);
         // changes the view to the main app
         app_view.setState(STATE.MAIN);
         // 
         getUserLocalization();
-        //TODO: get user preferences, probably by listening to the value added in preferences
+        user.getPreferencesFromFirebase();
         listenToSpotsCreation();
         listenToSpotsDeletion();
     } else {
@@ -552,9 +567,19 @@ $(document).ready(function(){
         app_view.setState(STATE.MENU_PREFERENCES);
     });
 
+    $(document).on('click','#preferences-confirm',function(){
+        let modifTransportMode = $('#transport-mode-select').val();
+        console.log(modifTransportMode);
+        let modif = {
+            transportMode: modifTransportMode,
+        }
+        user.updatePreferencesIntoFirebase(modif);
+    });
+
     $(document).on('click','#preferences-back',function(){
         app_view.setState(STATE.MAIN);
     });
+
 
 
     //---------------------//

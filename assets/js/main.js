@@ -463,7 +463,6 @@ firebase.auth().onAuthStateChanged(function (connectedUser) {
 $(document).ready(function(){
     // used for testing purpose, to set environement in main app, to skip login
     app_view.render();
-    $('#menu-toggle').data('champion','yo');
 
     //---------------//
     // Auth Controls //

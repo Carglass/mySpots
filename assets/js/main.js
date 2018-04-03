@@ -460,19 +460,28 @@ $(document).ready(function(){
         let name = $('#user-create-display').val();
         let email = $('#user-create-email').val();
         let password = $('#user-create-password').val();
-        firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
-            // Handle Errors here.
-            var errorCode = error.code;
-            var errorMessage = error.message;
-            console.log(errorCode + '   ' + errorMessage);
-          }).then(function(user){
-              // update the user name display name using a dork interface
-              user.updateProfile({displayName: name});
-              // reset the values in the fields
-              $('#user-create-display').val('');
-              $('#user-create-email').val('');
-              $('#user-create-password').val('');
-          });
+        let passwordConfirm = $('#user-create-password-confirm').val();
+
+            if (password === passwordConfirm) {
+                firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
+                    // Handle Errors here.
+                    var errorCode = error.code;
+                    var errorMessage = error.message;
+                    console.log(errorCode + '   ' + errorMessage);
+                  }).then(function(user){
+                      // update the user name display name using a dork interface
+                      user.updateProfile({displayName: name});
+                      // reset the values in the fields
+                      $('#user-create-display').val('');
+                      $('#user-create-email').val('');
+                      $('#user-create-password').val('');
+                  });
+            }
+            else {
+                alert("Passwords do not match. Please re-enter password.")
+            }
+
+
     });
 
     //event to login

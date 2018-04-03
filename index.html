@@ -7,16 +7,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" href="./assets/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="./assets/css/main.css">
+    <link rel="stylesheet" type="text/css" href="./assets/css/reset.css">
     <link href="https://fonts.googleapis.com/css?family=Istok+Web" rel="stylesheet">
 </head>
 <body>
     <!-- Initial Page to login -->
-    <div class="container">
+    <div class="login-container">
     <div class="login-button" id="login-page">
-        <p class="login-text"> Login to MySpots or Create a Free Account!
-    </p>
-        <input class="email-style" type="email" id="user-email">
-        <input class="password-style" type="password" id="user-password">
+        <p class="login-text"> Login to MySpots or sign up now to make your free account!
+    </p><br>
+        <input class="email-style" placeholder="email" type="email" id="user-email">
+        <input class="password-style" placeholder="password" type="password" id="user-password">
+
         <br>
         <button class="login-button-style" id="login-button">Login</button>
         <button class="signup-button-style" id="signup-button">Sign Up</button>
@@ -24,13 +26,17 @@
 </div>
     
     <!-- Page to Sign Up -->
-    <div id="signup-page">
+
+      <div class="signup-container" id="signup-page">
+    <div class="signup-button">
+      <p class="signup-text">Sign in to your MySpots</p>
         <input type="text" id='user-create-display'>
-        <input type="email" id="user-create-email">
-        <input type="password" id="user-create-password">
-        <input type="password" id="user-create-password-confirm">
-        <button id="signup-submit">Submit</button>
-    </div>
+        <input class="signup-email-style" type="email" placeholder="email" id="user-create-email">
+        <input class="signup-password-style" type="password" placeholder="password" id="user-create-password">
+        <input class="signup-passwordconfirm-style" type="password" placeholder="confirm password" id="user-create-password-confirm">
+        <button class="signup-page-button" id="signup-submit">Submit</button>
+</div>
+</div>
     <!-- main application inside which there is a navbar with action options, the map, and the spot widgets -->
     <div id='main-app' class="container">
         <header id="navbar" class="row">
@@ -50,6 +56,9 @@
         <section id="map" class="row">Map</section>
         <section id="spots" class="row"></section>
     </div>
+</header>
+
+
     <!-- spot Creation Page -->
     <div id="spot-creation-page">
         <input type="text" id="data-spot-label">

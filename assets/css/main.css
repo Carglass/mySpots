@@ -1,11 +1,23 @@
-.login-button{ 
+/* LOGIN PAGE AND SIGNUP PAGE */
+.login-container, .signup-container{
+background: url(/Users/rosienardulli/code/mySpots/assets/images/Map-bgd.jpg);
+background-repeat: no-repeat;
+background-attachment: fixed;
+background-position: center; 
+text-align: center;
+background-size: cover;  
+height: 100vh;
+padding-top: calc(50vh - 150px);
+}
+
+.login-button, .signup-button{ 
 background-color: #cfd8dc;
-width: 500px;
-height:200px;
-border:1px solid black;
+width: 600px;
+height:150px;
+border:1px solid #2286c3;
 display: block;
 margin : 0 auto;
-padding: 60px;
+padding: 30px;
 text-align: center;
 }
 
@@ -13,9 +25,19 @@ text-align: center;
 color:#2286c3;
 font-size: 20px;
 text-align: center;
+width: 150px;
+margin: 10px;
+border-radius:5px;
+box-shadow: 2px 2px 0 #cfd8dc inset;
 }
-
-.login-button-style, .signup-button-style{
+::placeholder {
+color: #2286c3;
+font-size: 18px;
+opacity: 0.5;
+text-align: center;
+font-family: 'Istok Web', sans-serif;
+}
+.login-button-style, .signup-button-style, .signup-page-button{
 background-color: #64b5f6;
 color: white;
 border-radius: 4px;
@@ -23,12 +45,113 @@ text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
 font-size: 110%;
 font-family: 'Istok Web', sans-serif;
 text-align: center;
-width: 40%;
+width: 30%;
 margin-left: 25%;
 margin-right: 25%;
 margin: 10px;
+border:1px solid #2286c3; 
+}
+.login-text, .signup-text{
+font-family: 'Istok Web', sans-serif;
+color: #2286c3;
+font-size: 18px;
+}
+.signup-email-style, .signup-password-style, .signup-passwordconfirm-style{
+color:#2286c3;
+font-size: 20px;
+text-align: center;
+width: 150px;
+margin: 10px;
+border-radius:5px;
+box-shadow: 2px 2px 0 #cfd8dc inset;
 }
 
-.login-text{
+/* MAIN PAGE */
+.mainpage{
+background-color: #cfd8dc;  
+}
+.sidenav {
+height: 100%;
+width: 0;
+position: fixed;
+z-index: 1;
+top: 0;
+left: 0;
+background-color: #9da6a9;
+overflow-x: hidden;
+transition: 0.5s;
+padding-top: 60px;
+}
+.sidenav a {
+padding: 30px 15px 15px 15px;
+text-decoration: none;
+font-size: 25px;
+color: #9be7ff;
 font-family: 'Istok Web', sans-serif;
+display: block;
+transition: 0.3s;
+}
+.sidenav a:hover {
+color: #f1f1f1;
+}
+.sidenav .closebtn {
+position: absolute;
+top: 0;
+right: 25px;
+font-size: 36px;
+margin-left: 50px;
+}
+@media screen and (max-height: 450px) {
+.sidenav {padding-top: 15px;}
+.sidenav a {font-size: 18px;}
+}
+.style-spot-button{
+background-color: #9be7ff;
+color: white;
+height: 30px;
+text-align: center;
+height:100px;
+border: solid 10px;
+}
+.favorite-spots{
+background-color: #2286c3;
+color: white;
+height: 30px;
+text-align: center;
+height:100px; 
+}
+.favorite-spots-two{
+background-color: #64b5f6;
+color: white;
+height: 30px;
+text-align: center;
+height:100px; 
+}
+.opennav{
+font-size:30px;
+cursor:pointer;
+color: #2286c3;
+font-family: 'Istok Web', sans-serif;
+}
+.mainpagetitle{
+color:#2286c3;
+font-size: 40px;
+font-family: 'Istok Web', sans-serif;
+text-align: center;
+background-color: #cfd8dc;
+padding: 35px 10px 15px 10px;
+}
+.mainpagesub{
+color:#9ea7aa;
+font-size: 25px;
+font-family: 'Istok Web', sans-serif;
+text-align: center;
+background-color: #cfd8dc;
+}
+.googlemapslayouthere{
+color: green;
+font-size: 50px;
+text-align: center;
+background: url(/Users/rosienardulli/code/mySpots/assets/images/Google-Maps.jpg);
+height: 300px;
 }

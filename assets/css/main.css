@@ -101,6 +101,36 @@ box-shadow: 2px 2px 0 #cfd8dc inset;
     text-align:right;
 }
 
+#map {
+    height: 540px;
+    width: 100%;
+
+}
+
+.spot {
+    width: 100%;
+    background-color: #64b5f6;
+    height: 50px;
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid gray;
+  }
+  
+  .spot-label {
+    padding: 10px;
+  }
+
+  .spot-timeTo {
+    padding: 10px;
+  }
+
+  .pac-container {
+    z-index: 10000;
+  }
+
+  .pac-container:after{display:none !important;}
+
+
 /*
 .mainpage{
 background-color: #cfd8dc;  

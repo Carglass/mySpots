@@ -1,12 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-        <style>
-                #map {
-                  height: 400px;
-                  width: 100%;
-                 }
-              </style>
+       
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>mySpots</title>
@@ -54,37 +49,51 @@
    
                            
                                       <nav class="navbar navbar-light navbar-static bg-faded" role="navigation">
-                                            <a class="navbar-brand" href="#">MySpots</a>
+                                            <button class="navbar-toggler pull-xs-right" type="button" id="create-spot-button" data-toggle="modal" data-target="#exampleModal">
+                                                    <i class="fas fa-plus"></i>
+                                                  </button>
+                                            <a class="navbar-brand" href="#">MySp<i class="fas fa-map-marker-alt"></i>ts</a>
                                             <!--We took out menu-toggle and menu-list id's-->
-                                            <ul class="nav navbar-nav">
+                                            <div class="nav navbar-nav">
                             
                                               <!-- insert more nav-items if you so choose -->
                                               <button class="navbar-toggler pull-xs-right" id="navbarSideButton" type="button">
                                                 &#9776;
                                               </button>
-                                            </ul>
+                                            </div>
                                             <ul class="navbar-side" id="navbarSide">
-                                                    <li class="navbar-side-item"><span class="side-link" id="delete-spots-open">Delete Spots</span></li>
-                                                    <li class="navbar-side-item"><span class="side-link" id="preferences-open">Preferences</span></li>
-                                                   <li class="navbar-side-item"><span class="side-link" id="logout-button">Logout</span></li>
+
+                                                <!--
+                                                    <div id="dismiss" class="justify-content-end float-right">
+                                                            <button class="btn btn-sm btn-outline-secondary" type="button">Close</button>
+                                                 </div> -->
+                                                     
+                                                    <li class="navbar-side-item" id="delete-spots-open"><a href="#" class="side-link" >Delete Spots</a></li>
+                                                    <li class="navbar-side-item" id="preferences-open"><a href="#" class="side-link" >Preferences</a></li>
+                                                   <li class="navbar-side-item" id="logout-button"><a href="#" class="side-link" >Logout</a></li>
                                                     <!-- insert more side-items if you so choose -->
                                                   </ul>
                                                   <div class="overlay"></div>
-                                        </div>
+                                      
                                           </nav>  
 
                                           <div class="row">
-                                                <div class="col-sm">
-                                                        <div id="create-spot-button" data-toggle="modal" data-target="#exampleModal">Create spot</div>
-                                                        <section id="spots"></section>
+                                                <div class="col">
+                                                        
+                                                  
+                                                        <section id="map">Map</section>
                                                 </div>
-                    <div class="col-lg">
 
-                            <section id="map">Map</section>
-                    </div>
-                    
-                  </div>
+                                        </div>
+                                        <div class="row">
+                                                <div class="col">
+                                                        
+                                                        <section id="spots"></section>
+                                                        
+                                                </div>
 
+                                        </div>
+                 
 
 
         </div>
@@ -162,6 +171,7 @@
 
     <script src="./assets/js/jquery-3.3.1.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.9/js/all.js" integrity="sha384-8iPTk2s/jMVj81dnzb/iFR2sdA7u06vHJyyLlAd4snFpCl/SnyUjRrbdJsw1pGIl" crossorigin="anonymous"></script>
 
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 

@@ -8,6 +8,7 @@
     <link rel="stylesheet" type="text/css" href="../mySpots/assets/css/reset.css">
 
     <link rel="stylesheet" type="text/css" href="../mySpots/assets/css/main.css">
+    <link rel="stylesheet" type="text/css" href="../mySpots/assets/css/nav.scss">
     <link rel="stylesheet" type="text/css" href="../mySpots/assets/css/bootstrap.min.css">
 
     <link href="https://fonts.googleapis.com/css?family=Istok+Web" rel="stylesheet">
@@ -41,29 +42,47 @@
 </div>
 </div>
     <!-- main application inside which there is a navbar with action options, the map, and the spot widgets -->
-    <div id='main-app' class="container">
-        <p class="main-page-top">MySpots</p>
-        <p class="main-page-sub">Keep track of your favorite spots and log your routes.</p>
-        <header class="create-spot-shortcut" id="navbar" class="row">
-            <div id="menu" class="col-2">
-                <!-- Menu toggle is here, to display the different elements -->
-                <h3 class="menu-title" id="menu-toggle">Menu</h3>
-                <div class="menu-style" id="menu-list">
-                    <ul>
-                        <li><button class="menu-button" id="delete-spots-open">Delete Spots</button></li>
-                        <li><button class="menu-button" id="preferences-open">Preferences</button></li>
-                        <li><button class="menu-button" id="logout-button">Logout</button></li>
-                    </ul>
-                </div>
-            </div>
-            <div id="create-spot-button" class="col-2" data-toggle="modal" data-target="#exampleModal">Create spot</div>
-        </header>
-        <section id="map" class="row">Map</section>
-        <section id="spots" class="row"></section>
+    <div id='main-app'>
+        <div class="container-fluid">
+
+   
+                           
+                                      <nav class="navbar navbar-light navbar-static bg-faded" role="navigation">
+                                            <a class="navbar-brand" href="#">MySpots</a>
+                                            <!--We took out menu-toggle and menu-list id's-->
+                                            <ul class="nav navbar-nav">
+                            
+                                              <!-- insert more nav-items if you so choose -->
+                                              <button class="navbar-toggler pull-xs-right" id="navbarSideButton" type="button">
+                                                &#9776;
+                                              </button>
+                                            </ul>
+                                            <ul class="navbar-side" id="navbarSide">
+                                                    <li class="navbar-side-item"><span class="side-link" id="delete-spots-open">Delete Spots</span></li>
+                                                    <li class="navbar-side-item"><span class="side-link" id="preferences-open">Preferences</span></li>
+                                                   <li class="navbar-side-item"><span class="side-link" id="logout-button">Logout</span></li>
+                                                    <!-- insert more side-items if you so choose -->
+                                                  </ul>
+                                                  <div class="overlay"></div>
+                                        </div>
+                                          </nav>  
+
+                                          <div class="row">
+                                                <div class="col-sm">
+                                                        <div id="create-spot-button" data-toggle="modal" data-target="#exampleModal">Create spot</div>
+                                                        <section id="spots"></section>
+                                                </div>
+                    <div class="col-lg">
+
+                            <section id="map">Map</section>
+                    </div>
+                    
+                  </div>
+
+
+
+        </div>
     </div>
-</header>
-
-
     <!-- spot Creation Page -->
     <div id="spot-creation-page">
 
@@ -138,9 +157,26 @@
 
     <script src="./assets/js/jquery-3.3.1.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
 
     <script src="./assets/js/main.js"></script>
+    <script src="./assets/js/nav.js"></script>
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
 </body>
 </html>

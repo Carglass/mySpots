@@ -2,6 +2,8 @@
 // Global App Management //
 //-----------------------//
 var intervalToSendRequest;
+var watchLocalisation
+
 
 var STATE = {
     LOGIN: 1,
@@ -157,7 +159,17 @@ var initialDataIsReady = false;
 // TODO: could be improved to WATCH the location, thus allowing for updates based on user movement
 // TODO: move it into user
 function getUserLocalization (){
-    navigator.geolocation.getCurrentPosition(function(position){
+    function error(err) {
+        console.warn('ERROR(' + err.code + '): ' + err.message);
+      }
+      
+      options = {
+        enableHighAccuracy: false,
+        timeout: 5000,
+        maximumAge: 0
+      };
+      
+      id = navigator.geolocation.watchPosition(function(position){
         user.position = [];
         // creates a small Array of length 2, for easier use for Gmaps conversion
         user.position.push(position.coords.latitude, position.coords.longitude);
@@ -165,7 +177,10 @@ function getUserLocalization (){
         // calls the Gmaps request
         // TODO: evaluate the interest of creating a user.setPosition method that would call it instead
         spots.getTimeToDestinations();
-    });
+        // if (!intervalToSendRequest){
+        //     intervalToSendRequest = window.setInterval(getUserLocalization,5000);
+        // }
+    }, error, options);
 }
 
 //--------------------------//
@@ -259,9 +274,9 @@ var spots = {
             let destinationsArray = spots.getDestinationsArray();
             // call for the function that will launch the API request
             getDurationsToSpots(user.position,destinationsArray);
-            if (!intervalToSendRequest){
-                intervalToSendRequest = window.setInterval(getDurationsToSpots.bind(window,user.position,spots.getDestinationsArray()),30000);
-            }
+            // if (!intervalToSendRequest){
+            //     intervalToSendRequest = window.setInterval(getDurationsToSpots.bind(window,user.position,spots.getDestinationsArray()),30000);
+            // }
         }
     },
     getDestinationsArray: function(){

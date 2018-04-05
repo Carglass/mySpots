@@ -1,6 +1,7 @@
 //-----------------------//
 // Global App Management //
 //-----------------------//
+var intervalToSendRequest;
 
 var STATE = {
     LOGIN: 1,
@@ -172,6 +173,7 @@ function getUserLocalization (){
 //--------------------------//
 
 function getDurationsToSpots(origin, destinations){
+    console.log('Im running and sending!');
     // converting latitude and longitude from Geoloc into a google object
     let origin1 = new google.maps.LatLng(...origin);
     // initializing the service for getting the durations, and launche the request
@@ -184,11 +186,12 @@ function getDurationsToSpots(origin, destinations){
           destinations: destinations,
           // by default we ask for driving durations
           // TODO: have a setting to select the favorite mode of transport
-          travelMode: user.preferences.transportMode,
+          travelMode: user.preferences ? user.preferences.transportMode : 'DRIVING',
         }, onDurationsReceived);
 }
 
 function onDurationsReceived(response, status) {
+    console.log('I received an update!');
     // get the number of duration
     let numberOfDestinations = response.rows[0].elements.length;
     console.log(response.rows[0]);
@@ -253,13 +256,20 @@ var spots = {
         // if google API is ready, and geolocalization is available, and data is received from firebase, then fire the request for distance matrix
         if (typeof google !== 'undefined' && user.position && initialDataIsReady){
             // create the array of destinations from the addresses in the spots
-            let destinationsArray = [];
-            for (let spotIter of this.spotsArray){
-                destinationsArray.push(spotIter.address);
-            }
+            let destinationsArray = spots.getDestinationsArray();
             // call for the function that will launch the API request
             getDurationsToSpots(user.position,destinationsArray);
+            if (!intervalToSendRequest){
+                intervalToSendRequest = window.setInterval(getDurationsToSpots.bind(window,user.position,spots.getDestinationsArray()),30000);
+            }
         }
+    },
+    getDestinationsArray: function(){
+        let destinationsArray = [];
+            for (let spotIter of spots.spotsArray){
+                destinationsArray.push(spotIter.address);
+            }
+        return destinationsArray;
     },
     renderForDeletion: function(){
         $('#spots-deletion-list').empty();

@@ -204,7 +204,28 @@ function onDurationsReceived(response, status) {
 // Google Maps API Init //
 //----------------------//
 
+function setMarker () {
+    debugger;
+    // must check spotsArray for data, if yes, then fire function to plot spot
+
+    var currentSpot = {lat: 50, lng: -150};
+
+    var marker = new google.maps.Marker({
+      position: currentSpot,
+      map: map
+    });
+    map.setZoom(5);
+    map.panTo(currentSpot);
+}
+var map;
+
 function initMap (){
+    var currentSpot = {lat: -25.363, lng: 131.044};
+    map = new google.maps.Map(document.getElementById('map'), {
+      zoom: 4,
+      center: currentSpot
+    });
+    setMarker();
     spots.getTimeToDestinations();
     activateAutoComplete();
 }
@@ -390,6 +411,7 @@ function listenToSpotsCreation (){
         // TODO: collecting the length of the locations in Firebase, it would be possible to throw the getDuration only when all spots are loaded, rather than on every child
         // maybe by changing initialDataIsReady to true only at that time
         spots.getTimeToDestinations();
+        setMarker();
     });
 }
 
@@ -481,7 +503,6 @@ $(document).ready(function(){
                 firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
                     // Handle Errors here.
                     var errorCode = error.code;
-                    var errorMessage = error.message;
                     console.log(errorCode + '   ' + errorMessage);
                   }).then(function(user){
                       // update the user name display name using a dork interface

@@ -1,6 +1,9 @@
 //-----------------------//
 // Global App Management //
 //-----------------------//
+var intervalToSendRequest;
+var watchLocalisation
+
 
 var STATE = {
     LOGIN: 1,
@@ -156,7 +159,17 @@ var initialDataIsReady = false;
 // TODO: could be improved to WATCH the location, thus allowing for updates based on user movement
 // TODO: move it into user
 function getUserLocalization (){
-    navigator.geolocation.getCurrentPosition(function(position){
+    function error(err) {
+        console.warn('ERROR(' + err.code + '): ' + err.message);
+      }
+      
+      options = {
+        enableHighAccuracy: false,
+        timeout: 5000,
+        maximumAge: 0
+      };
+      
+      id = navigator.geolocation.watchPosition(function(position){
         user.position = [];
         // creates a small Array of length 2, for easier use for Gmaps conversion
         user.position.push(position.coords.latitude, position.coords.longitude);
@@ -164,7 +177,10 @@ function getUserLocalization (){
         // calls the Gmaps request
         // TODO: evaluate the interest of creating a user.setPosition method that would call it instead
         spots.getTimeToDestinations();
-    });
+        // if (!intervalToSendRequest){
+        //     intervalToSendRequest = window.setInterval(getUserLocalization,5000);
+        // }
+    }, error, options);
 }
 
 //--------------------------//
@@ -172,6 +188,7 @@ function getUserLocalization (){
 //--------------------------//
 
 function getDurationsToSpots(origin, destinations){
+    console.log('Im running and sending!');
     // converting latitude and longitude from Geoloc into a google object
     let origin1 = new google.maps.LatLng(...origin);
     // initializing the service for getting the durations, and launche the request
@@ -184,11 +201,12 @@ function getDurationsToSpots(origin, destinations){
           destinations: destinations,
           // by default we ask for driving durations
           // TODO: have a setting to select the favorite mode of transport
-          travelMode: user.preferences.transportMode,
+          travelMode: user.preferences ? user.preferences.transportMode : 'DRIVING',
         }, onDurationsReceived);
 }
 
 function onDurationsReceived(response, status) {
+    console.log('I received an update!');
     // get the number of duration
     let numberOfDestinations = response.rows[0].elements.length;
     console.log(response.rows[0]);
@@ -204,7 +222,28 @@ function onDurationsReceived(response, status) {
 // Google Maps API Init //
 //----------------------//
 
+function setMarker () {
+    debugger;
+    // must check spotsArray for data, if yes, then fire function to plot spot
+
+    var currentSpot = {lat: 50, lng: -150};
+
+    var marker = new google.maps.Marker({
+      position: currentSpot,
+      map: map
+    });
+    map.setZoom(5);
+    map.panTo(currentSpot);
+}
+var map;
+
 function initMap (){
+    var currentSpot = {lat: -25.363, lng: 131.044};
+    map = new google.maps.Map(document.getElementById('map'), {
+      zoom: 4,
+      center: currentSpot
+    });
+    setMarker();
     spots.getTimeToDestinations();
     activateAutoComplete();
 }
@@ -253,13 +292,20 @@ var spots = {
         // if google API is ready, and geolocalization is available, and data is received from firebase, then fire the request for distance matrix
         if (typeof google !== 'undefined' && user.position && initialDataIsReady){
             // create the array of destinations from the addresses in the spots
-            let destinationsArray = [];
-            for (let spotIter of this.spotsArray){
-                destinationsArray.push(spotIter.address);
-            }
+            let destinationsArray = spots.getDestinationsArray();
             // call for the function that will launch the API request
             getDurationsToSpots(user.position,destinationsArray);
+            // if (!intervalToSendRequest){
+            //     intervalToSendRequest = window.setInterval(getDurationsToSpots.bind(window,user.position,spots.getDestinationsArray()),30000);
+            // }
         }
+    },
+    getDestinationsArray: function(){
+        let destinationsArray = [];
+            for (let spotIter of spots.spotsArray){
+                destinationsArray.push(spotIter.address);
+            }
+        return destinationsArray;
     },
     renderForDeletion: function(){
         $('#spots-deletion-list').empty();
@@ -390,6 +436,7 @@ function listenToSpotsCreation (){
         // TODO: collecting the length of the locations in Firebase, it would be possible to throw the getDuration only when all spots are loaded, rather than on every child
         // maybe by changing initialDataIsReady to true only at that time
         spots.getTimeToDestinations();
+        setMarker();
     });
 }
 
@@ -481,7 +528,6 @@ $(document).ready(function(){
                 firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
                     // Handle Errors here.
                     var errorCode = error.code;
-                    var errorMessage = error.message;
                     console.log(errorCode + '   ' + errorMessage);
                   }).then(function(user){
                       // update the user name display name using a dork interface

@@ -1,11 +1,6 @@
 /* LOGIN PAGE AND SIGNUP PAGE */
-<<<<<<< HEAD
-.login-container, .signup-container{
-background: url(../mySpots/assets/images/Map-bgd.jpg);
-=======
 .container-style{
 background: url(../images/Map-bgd.jpg);
->>>>>>> 0fdb59f5033b53c56787dce2dc117133901b972c
 background-repeat: no-repeat;
 background-attachment: fixed;
 background-position: center; 
@@ -106,18 +101,38 @@ box-shadow: 2px 2px 0 #cfd8dc inset;
     text-align:right;
 }
 
+#map {
+    height: 540px;
+    width: 100%;
+
+}
+
+.spot {
+    width: 100%;
+    background-color: #64b5f6;
+    height: 50px;
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid gray;
+  }
+  
+  .spot-label {
+    padding: 10px;
+  }
+
+  .spot-timeTo {
+    padding: 10px;
+  }
+
+  .pac-container {
+    z-index: 10000;
+  }
+
+  .pac-container:after{display:none !important;}
 
 
-
-
-
-
-
-
-
-
-
-/*.mainpage{
+/*
+.mainpage{
 background-color: #cfd8dc;  
 }
 .sidenav {
@@ -202,7 +217,6 @@ background-color: #cfd8dc;
 color: green;
 font-size: 50px;
 text-align: center;
-<<<<<<< HEAD
 background: url(../mySpots/assets/images/Google-Maps.jpg);
 height: 300px;
 }
@@ -221,11 +235,12 @@ height: 300px;
 }
 .modal.closed {
  
- /*   display: none; */
+   display: none; 
   
   }
-
-.modalmySpot-overlay {
+*/
+/*
+.modalmySpot-overlay {*/
 
     /* recommendation:
        don't focus on the number "1000" here, but rather,
@@ -233,7 +248,7 @@ height: 300px;
        follow that system. This number should be pretty
        high on the scale in that system.
     */
-    z-index: 1000;
+    /*z-index: 1000;
   
     position: fixed;
     top: 0;
@@ -241,9 +256,4 @@ height: 300px;
     width: 100%;
     height: 100%;
   
-  }
-=======
-background: url(./assets/images/Google-Maps.jpg);
-height: 300px;
-}*/
->>>>>>> 0fdb59f5033b53c56787dce2dc117133901b972c
+  }*/

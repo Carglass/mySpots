@@ -1,21 +1,17 @@
 <!DOCTYPE html>
 <html>
 <head>
+       
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>mySpots</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-<<<<<<< HEAD
     <link rel="stylesheet" type="text/css" href="../mySpots/assets/css/reset.css">
 
     <link rel="stylesheet" type="text/css" href="../mySpots/assets/css/main.css">
+    <link rel="stylesheet" type="text/css" href="../mySpots/assets/css/nav.scss">
     <link rel="stylesheet" type="text/css" href="../mySpots/assets/css/bootstrap.min.css">
 
-=======
-    <link rel="stylesheet" type="text/css" href="./assets/css/reset.css">
-    <link rel="stylesheet" type="text/css" href="./assets/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="./assets/css/main.css">
->>>>>>> 0fdb59f5033b53c56787dce2dc117133901b972c
     <link href="https://fonts.googleapis.com/css?family=Istok+Web" rel="stylesheet">
 </head>
 <body>
@@ -47,29 +43,61 @@
 </div>
 </div>
     <!-- main application inside which there is a navbar with action options, the map, and the spot widgets -->
-    <div id='main-app' class="container">
-        <p class="main-page-top">MySpots</p>
-        <p class="main-page-sub">Keep track of your favorite spots and log your routes.</p>
-        <header class="create-spot-shortcut" id="navbar" class="row">
-            <div id="menu" class="col-2">
-                <!-- Menu toggle is here, to display the different elements -->
-                <h3 class="menu-title" id="menu-toggle">Menu</h3>
-                <div class="menu-style" id="menu-list">
-                    <ul>
-                        <li><button class="menu-button" id="delete-spots-open">Delete Spots</button></li>
-                        <li><button class="menu-button" id="preferences-open">Preferences</button></li>
-                        <li><button class="menu-button" id="logout-button">Logout</button></li>
-                    </ul>
-                </div>
-            </div>
-            <div id="create-spot-button" class="col-2" data-toggle="modal" data-target="#exampleModal">Create spot</div>
-        </header>
-        <section id="map" class="row">Map</section>
-        <section id="spots" class="row"></section>
+    <div id='main-app'>
+        <div class="container-fluid">
+
+   
+                           
+                                      <nav class="navbar navbar-light navbar-static bg-faded" role="navigation">
+                                            <button class="navbar-toggler pull-xs-right" type="button" id="create-spot-button" data-toggle="modal" data-target="#exampleModal">
+                                                    <i class="fas fa-plus"></i>
+                                                  </button>
+                                            <a class="navbar-brand" href="#">MySp<i class="fas fa-map-marker-alt"></i>ts</a>
+                                            <!--We took out menu-toggle and menu-list id's-->
+                                            <div class="nav navbar-nav">
+                            
+                                              <!-- insert more nav-items if you so choose -->
+                                              <button class="navbar-toggler pull-xs-right" id="navbarSideButton" type="button">
+                                                &#9776;
+                                              </button>
+                                            </div>
+                                            <ul class="navbar-side" id="navbarSide">
+
+                                                <!--
+                                                    <div id="dismiss" class="justify-content-end float-right">
+                                                            <button class="btn btn-sm btn-outline-secondary" type="button">Close</button>
+                                                 </div> -->
+                                                     
+                                                    <li class="navbar-side-item" id="delete-spots-open"><a href="#" class="side-link" >Delete Spots</a></li>
+                                                    <li class="navbar-side-item" id="preferences-open"><a href="#" class="side-link" >Preferences</a></li>
+                                                   <li class="navbar-side-item" id="logout-button"><a href="#" class="side-link" >Logout</a></li>
+                                                    <!-- insert more side-items if you so choose -->
+                                                  </ul>
+                                                  <div class="overlay"></div>
+                                      
+                                          </nav>  
+
+                                          <div class="row">
+                                                <div class="col">
+                                                        
+                                                  
+                                                        <section id="map">Map</section>
+                                                </div>
+
+                                        </div>
+                                        <div class="row">
+                                                <div class="col">
+                                                        
+                                                        <section id="spots"></section>
+                                                        
+                                                </div>
+
+                                        </div>
+                 
+
+
+        </div>
     </div>
-</header>
-
-
     <!-- spot Creation Page -->
     <div id="spot-creation-page">
 
@@ -100,13 +128,6 @@
           </div>
         </div>
       </div>
-    
-         
-   
-       
-   
-
-       
         
     </div>
     <!-- Spots Deletion Page -->
@@ -146,14 +167,18 @@
     };
     firebase.initializeApp(config);
     </script>
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBlJyxmuoUkTYqiOo5Kqf68m1oESPjssTk&libraries=places&callback=initMap"
-    type="text/javascript"></script>
+   
 
     <script src="./assets/js/jquery-3.3.1.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.9/js/all.js" integrity="sha384-8iPTk2s/jMVj81dnzb/iFR2sdA7u06vHJyyLlAd4snFpCl/SnyUjRrbdJsw1pGIl" crossorigin="anonymous"></script>
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
 
     <script src="./assets/js/main.js"></script>
-
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBlJyxmuoUkTYqiOo5Kqf68m1oESPjssTk&libraries=places&callback=initMap"
+    type="text/javascript"></script>
+    <script src="./assets/js/nav.js"></script>
 </body>
 </html>

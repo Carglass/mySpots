@@ -2,7 +2,8 @@
 // Global App Management //
 //-----------------------//
 var intervalToSendRequest;
-var watchLocalisation
+var watchLocalisation;
+var geocoder;
 
 
 var STATE = {
@@ -174,6 +175,7 @@ function getUserLocalization (){
         // creates a small Array of length 2, for easier use for Gmaps conversion
         user.position.push(position.coords.latitude, position.coords.longitude);
         console.log(user.position);
+        setUserMarker(position.coords.latitude, position.coords.longitude);
         // calls the Gmaps request
         // TODO: evaluate the interest of creating a user.setPosition method that would call it instead
         spots.getTimeToDestinations();
@@ -222,30 +224,54 @@ function onDurationsReceived(response, status) {
 // Google Maps API Init //
 //----------------------//
 
-function setMarker () {
-    debugger;
+function setUserMarker (newLat, newLong) {
     // must check spotsArray for data, if yes, then fire function to plot spot
 
-    var currentSpot = {lat: 50, lng: -150};
+    var currentSpot = {lat: newLat, lng: newLong};
 
     var marker = new google.maps.Marker({
-      position: currentSpot,
-      map: map
+        position: currentSpot,
+        map: map,
+        icon: {
+        'path': google.maps.SymbolPath.CIRCLE,
+        'fillColor': '#C8D6EC',
+        'fillColor': '#4285F4',
+        'fillOpacity': 1,
+        'scale': 6,
+        'strokeColor': 'white',
+        'strokeWeight': 2,
+        },
     });
-    map.setZoom(5);
     map.panTo(currentSpot);
 }
+
+function setSpotMarker (spotToCode){
+    geocoder.geocode( { 'address': spotToCode.address}, function(results, status) {
+        if (status == 'OK') {
+          var marker = new google.maps.Marker({
+              map: map,
+              position: results[0].geometry.location
+          });
+          spots.markersArray.push({uid: spotToCode.uid, marker: marker});
+        } else {
+          alert('Geocode was not successful for the following reason: ' + status);
+        }
+      });
+  
+}
+
 var map;
 
 function initMap (){
-    var currentSpot = {lat: -25.363, lng: 131.044};
+    var currentSpot = {lat: 41.87, lng: 87.63};
     map = new google.maps.Map(document.getElementById('map'), {
       zoom: 4,
       center: currentSpot
     });
-    setMarker();
+    map.setZoom(10);
     spots.getTimeToDestinations();
     activateAutoComplete();
+    geocoder = new google.maps.Geocoder();
 }
 
 //-------------------------//
@@ -271,6 +297,7 @@ var database = firebase.database();
 var spots = {
     // spotArray stores the spot objects for a quick access, sorting etc
     spotsArray: [],
+    markersArray: [],
     // called on child_added, stores the new spot into spots, then call render
     // maybe useless as it will trigger a lot at app startup
     pushspot: function(newSpot){
@@ -436,7 +463,7 @@ function listenToSpotsCreation (){
         // TODO: collecting the length of the locations in Firebase, it would be possible to throw the getDuration only when all spots are loaded, rather than on every child
         // maybe by changing initialDataIsReady to true only at that time
         spots.getTimeToDestinations();
-        setMarker();
+        setSpotMarker(spotIter);
     });
 }
 
@@ -455,6 +482,7 @@ function deleteSpotsFromFirebase(){
     }
 }
 
+
 function listenToSpotsDeletion (){
     database.ref('users/' + firebase.auth().currentUser.uid + '/locations').on("child_removed", function(snapshot){
         let deletedUid = snapshot.key;
@@ -464,6 +492,11 @@ function listenToSpotsDeletion (){
                 // TODO: Understand why it works, it should not as the index i is not
                 // the good one after the first splice
                 tempSpotsArray.splice(i,1);
+            }
+            if (spots.markersArray[i].uid === deletedUid){
+                // TODO: Understand why it works, it should not as the index i is not
+                // the good one after the first splice
+                markersArray[i].marker.setMap(null);
             }
         }
         spots.spotsArray = tempSpotsArray;

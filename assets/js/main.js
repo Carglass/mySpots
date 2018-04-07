@@ -567,7 +567,7 @@ $(document).ready(function(){
                   }).then(function(user){
                       // update the user name display name using a dork interface
                       user.updateProfile({displayName: name});
-                      database.ref('users/' + firebase.auth().currentUser.uid + '/preferences').set('DRIVING');
+                      database.ref('users/' + firebase.auth().currentUser.uid + '/preferences/transportMode').set('DRIVING');
                       // reset the values in the fields
                       $('#user-create-display').val('');
                       $('#user-create-email').val('');

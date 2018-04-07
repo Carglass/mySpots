@@ -1,182 +1,160 @@
 <!DOCTYPE html>
 <html>
 <head>
-       
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>mySpots</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" href="../mySpots/assets/css/reset.css">
-
-    <link rel="stylesheet" type="text/css" href="../mySpots/assets/css/main.css">
-    <link rel="stylesheet" type="text/css" href="../mySpots/assets/css/nav.css">
-    <link rel="stylesheet" type="text/css" href="../mySpots/assets/css/bootstrap.min.css">
-
-    <link href="https://fonts.googleapis.com/css?family=Istok+Web" rel="stylesheet">
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>mySpots</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css" href="../mySpots/assets/css/reset.css">
+<link rel="stylesheet" type="text/css" href="../mySpots/assets/css/main.css">
+<link rel="stylesheet" type="text/css" href="../mySpots/assets/css/nav.css">
+<link rel="stylesheet" type="text/css" href="../mySpots/assets/css/bootstrap.min.css">
+<link href="https://fonts.googleapis.com/css?family=Istok+Web" rel="stylesheet">
 </head>
 <body>
-    <!-- Initial Page to login -->
-    <div class="container-style" id="login-page">
-    <div class="display-box">
-        <p class="login-signup-text"> Login to MySpots or sign up now <br>to make your free account!
-    </p>
-        <input class="input-style" placeholder="email" type="email" id="user-email">
-        <input class="input-style" placeholder="password" type="password" id="user-password">
-        <br>
-        <button class="button-style" id="login-button">Login</button>
-        <button class="button-style" id="signup-button">Sign Up Now</button>
+<!-- Initial Page to login -->
+<div class="container-style" id="login-page">
+  <div class="display-box">
+    <p class="login-signup-text"> Login to MySp<i class="fas fa-map-marker-alt"></i>ts or sign up now <br>
+      to make your free account! </p>
+    <input class="input-style" placeholder="email" type="email" id="user-email">
+    <input class="input-style" placeholder="password" type="password" id="user-password">
+    <br>
+    <button class="button-style" id="login-button">Login</button>
+    <button class="button-style" id="signup-button">Sign Up Now</button>
+  </div>
+</div>
+
+<!-- Page to Sign Up -->
+
+<div class="container-style" id="signup-page">
+  <div class="display-box">
+    <p class="login-signup-text"> Create a new MySp<i class="fas fa-map-marker-alt"></i>ts accounts</p>
+    <input class="input-style" type="text" placeholder="name" id='user-create-display'>
+    <input class="input-style" type="email" placeholder="email" id="user-create-email">
+    <br>
+    <input class="input-style" type="password" placeholder="password" id="user-create-password">
+    <input class="input-style" type="password" placeholder="confirm password" id="user-create-password-confirm">
+    <br>
+    <button class="button-style" id="signup-submit">Submit</button>
+  </div>
+</div>
+
+<!-- main application inside which there is a navbar with action options, the map, and the spot widgets -->
+
+<div id='main-app'>
+  <div class="container-fluid">
+    <nav class="navbar navbar-light navbar-static bg-faded" role="navigation">
+      <button class="navbar-toggler pull-xs-right" type="button" id="create-spot-button" data-toggle="modal" data-target="#exampleModal"> <i class="fas fa-plus"></i> 
+      <!-- <div class="create-spot"></div>  --> 
+      </button>
+      <a class="navbar-brand" id="title" href="#">MySp<i class="fas fa-map-marker-alt"></i>ts</a> 
+      <!--We took out menu-toggle and menu-list id's-->
+      <div class="nav navbar-nav"> 
+        
+        <!-- insert more nav-items if you so choose -->
+        <button class="navbar-toggler pull-xs-right" id="navbarSideButton" type="button"> &#9776; 
+        <!-- <div class="menu-style"></div> --> 
+        </button>
+      </div>
+      <ul class="navbar-side" id="navbarSide">
+        <li class="navbar-side-item" id="delete-spots-open"><a href="#" class="side-link" >Delete Spots</a></li>
+        <li class="navbar-side-item" id="preferences-open"><a href="#" class="side-link" >Preferences</a></li>
+        <li class="navbar-side-item" id="logout-button"><a href="#" class="side-link" >Logout</a></li>
+        <!-- insert more side-items if you so choose -->
+      </ul>
+      <div class="overlay"></div>
+    </nav>
+    <div class="row">
+      <div class="col">
+        <section id="map">Map</section>
+      </div>
     </div>
+    <br/>
+    <div class="row no-gutter">
+      <div class="col-12">
+        <section id="spots"></section>
+      </div>
+    </div>
+  </div>
 </div>
-    
-    <!-- Page to Sign Up -->
 
-      <div class="container-style" id="signup-page">
-    <div class="display-box">
-        <p class="login-signup-text"> Create a new MySpots accounts</p>
-        <input class="input-style" type="text" placeholder="name" id='user-create-display'>
-        <input class="input-style" type="email" placeholder="email" id="user-create-email">
-        <br>
-        <input class="input-style" type="password" placeholder="password" id="user-create-password">
-        <input class="input-style" type="password" placeholder="confirm password" id="user-create-password-confirm">
-        <br>
-        <button class="button-style" id="signup-submit">Submit</button>
-</div>
-</div>
-    <!-- main application inside which there is a navbar with action options, the map, and the spot widgets -->
-    <div id='main-app'>
-        <div class="container-fluid">
+<!-- spot Creation Page -->
 
-   
-                           
-                                      <nav class="navbar navbar-light navbar-static bg-faded" role="navigation">
-                                            <button class="navbar-toggler pull-xs-right" type="button" id="create-spot-button" data-toggle="modal" data-target="#exampleModal">
-                                                    <i class="fas fa-plus"></i>
-                                                    <div class="create-spot">Create a new spot</div>
-                                                  </button>
-                                            <a class="navbar-brand" id="title" href="#">MySp<i class="fas fa-map-marker-alt"></i>ts</a>
-                                            <!--We took out menu-toggle and menu-list id's-->
-                                            <div class="nav navbar-nav">
-                            
-                                              <!-- insert more nav-items if you so choose -->
-                                              <button class="navbar-toggler pull-xs-right" id="navbarSideButton" type="button">
-                                                &#9776;
-                                                <div class="menu-style">Menu</div>
-                                              </button>
-
-                                            </div>
-                                            <ul class="navbar-side" id="navbarSide">
-
-                                             
-                                                     
-                                                    <li class="navbar-side-item" id="delete-spots-open"><a href="#" class="side-link" >Delete Spots</a></li>
-                                                    <li class="navbar-side-item" id="preferences-open"><a href="#" class="side-link" >Preferences</a></li>
-                                                   <li class="navbar-side-item" id="logout-button"><a href="#" class="side-link" >Logout</a></li>
-                                                    <!-- insert more side-items if you so choose -->
-                                                  </ul>
-                                                  <div class="overlay"></div>
-                                      
-                                          </nav>  
-
-                                          <div class="row">
-                                                <div class="col">
-                                                        
-                                                  
-                                                        <section id="map">Map</section>
-                                                </div>
-
-                                        </div>
-                                        <br/>
-                                        <div class="row no-gutter">
-                                                <div class="col-12">
-                                                        
-                                                        <section id="spots"></section>
-                                                        
-                                                </div>
-
-                                        </div>
-                 
-
-
+<div id="spot-creation-page"> 
+  
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Create New Spot</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"> <span aria-hidden="true">&times;</span> </button>
         </div>
-    </div>
-    <!-- spot Creation Page -->
-    <div id="spot-creation-page">
-
-        <!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Create New Spot</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">
-                    <div class="form-group">
-                   
-                    <input type="text" id="data-spot-label" placeholder="Enter New Spot">
-                    </div>
-                    <div class="form-group">
-                    
-                    <input type="text" id="data-spot-address" placeholder="Enter Address">
-                    </div>
-                    <div class="form-group">
-                    <button type="button" class="btn btn-primary" data-dismiss='modal' id="data-spot-create">Submit</button>
-                    </div>
-            </div>
-            
+        <div class="modal-body">
+          <div class="form-group">
+            <input type="text" id="data-spot-label" placeholder="Enter New Spot">
+          </div>
+          <div class="form-group">
+            <input type="text" id="data-spot-address" placeholder="Enter Address">
+          </div>
+          <div class="form-group">
+            <button type="button" class="btn btn-primary" data-dismiss='modal' id="data-spot-create">Submit</button>
           </div>
         </div>
       </div>
-        
     </div>
-    <!-- Spots Deletion Page -->
-    <div id="spots-deletion-page">
-        <div class="delete-page-display-box">
-       
-            <h3 id="delete-page-title">Select Spots to delete</h3>
-            <ul id="spots-deletion-list"></ul>
-            <button id="spots-deletion-back">Back to Main</button>
-            <button id="spot-deletion-confirm">Confirm deletion</button>
+  </div>
+</div>
+
+<!-- Spots Deletion Page -->
+
+<div id="spots-deletion-page">
+  <div class="delete-page-display-box">
+    <h3 id="delete-page-title">Select Spots to delete</h3>
+    <ul id="spots-deletion-list">
+    </ul>
+    <button class="btn" id="spots-deletion-back">Back to Main</button>
+    <button class="btn" id="spot-deletion-confirm">Confirm deletion</button>
+  </div>
+</div>
+
+<!-- Preferences Page -->
+
+<div id="preferences-page">
+  <div class="container-fluid spotsBgColor">
+    <div style="height: 150px"></div>
+    <div class="delete-page-display-box">
+      <div class="row">
+        <div class="col align-self-center">
+          <h3 class="spotsTitle">Preferences</h3>
         </div>
+      </div>
+      <div class="row">
+        <div class="col align-self-center spotsCol">
+          <select id="transport-mode-select">
+            <option value="DRIVING">Driving</option>
+            <option value="WALKING">Walking</option>
+            <option value="BICYCLING">Biking</option>
+            <option value="TRANSIT">Public Transport</option>
+          </select>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col align-self-center spotsCol">
+          <button class="btn spotsButton" id="preferences-back">Back to Main</button>
+          <button class="btn spotsButton" id="preferences-confirm">Confirm Preferences</button>
+        </div>
+      </div>
     </div>
-    <!-- Preferences Page -->
-    <div id="preferences-page">
-        <div class="container-fluid spotsBgColor">
-            <div class="spotsDiv">
-                <div class="row">
-                        <div class="col align-self-center">
-                                <h3 class="spotsTitle">Preferences</h3>
-                            </div>
-                </div>
-    
-                <div class="row">
-                        <div class="col align-self-center spotsCol">
-    <select id="transport-mode-select"> 
-        <option value="DRIVING">Driving</option> 
-        <option value="WALKING">Walking</option>
-        <option value="BICYCLING">Biking</option>
-        <option value="TRANSIT">Public Transport</option>
-    </select>
-    </div>
-    </div>
-    <div class="row">
-            <div class="col align-self-center spotsCol">
-    <button class="btn spotsButton" id="preferences-back">Back to Main</button>
-    <button class="btn spotsButton" id="preferences-confirm">Confirm Preferences</button>
-            </div>
-    </div>
+  </div>
 </div>
-    </div>
-</div>
-    <!-- Look up into one spot, information to show to be determined -->
-    <div id="spot-view-page">
 
-    </div>
+<!-- Look up into one spot, information to show to be determined -->
+<div id="spot-view-page"> </div>
 
-    <script src="https://www.gstatic.com/firebasejs/4.12.1/firebase.js"></script>
-    <script>
+<script src="https://www.gstatic.com/firebasejs/4.12.1/firebase.js"></script> 
+<script>
     // Initialize Firebase
     var config = {
         apiKey: "AIzaSyBlJyxmuoUkTYqiOo5Kqf68m1oESPjssTk",
@@ -187,19 +165,14 @@
         messagingSenderId: "329534431602"
     };
     firebase.initializeApp(config);
-    </script>
-   
-
-    <script src="./assets/js/jquery-3.3.1.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script defer src="https://use.fontawesome.com/releases/v5.0.9/js/all.js" integrity="sha384-8iPTk2s/jMVj81dnzb/iFR2sdA7u06vHJyyLlAd4snFpCl/SnyUjRrbdJsw1pGIl" crossorigin="anonymous"></script>
-
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-
-
-    <script src="./assets/js/main.js"></script>
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBlJyxmuoUkTYqiOo5Kqf68m1oESPjssTk&libraries=places&callback=initMap"
-    type="text/javascript"></script>
-    <script src="./assets/js/nav.js"></script>
+    </script> 
+<script src="./assets/js/jquery-3.3.1.js"></script> 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script> 
+<script defer src="https://use.fontawesome.com/releases/v5.0.9/js/all.js" integrity="sha384-8iPTk2s/jMVj81dnzb/iFR2sdA7u06vHJyyLlAd4snFpCl/SnyUjRrbdJsw1pGIl" crossorigin="anonymous"></script> 
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script> 
+<script src="./assets/js/main.js"></script> 
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBlJyxmuoUkTYqiOo5Kqf68m1oESPjssTk&libraries=places&callback=initMap"
+    type="text/javascript"></script> 
+<script src="./assets/js/nav.js"></script>
 </body>
 </html>

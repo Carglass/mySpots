@@ -274,7 +274,7 @@ function initMap (){
       zoom: 4,
       center: currentSpot
     });
-    map.setZoom(10);
+    map.setZoom(16);
     spots.getTimeToDestinations();
     activateAutoComplete();
     geocoder = new google.maps.Geocoder();

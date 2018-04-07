@@ -66,10 +66,7 @@
                                             </div>
                                             <ul class="navbar-side" id="navbarSide">
 
-                                                <!--
-                                                    <div id="dismiss" class="justify-content-end float-right">
-                                                            <button class="btn btn-sm btn-outline-secondary" type="button">Close</button>
-                                                 </div> -->
+                                             
                                                      
                                                     <li class="navbar-side-item" id="delete-spots-open"><a href="#" class="side-link" >Delete Spots</a></li>
                                                     <li class="navbar-side-item" id="preferences-open"><a href="#" class="side-link" >Preferences</a></li>
@@ -88,8 +85,9 @@
                                                 </div>
 
                                         </div>
-                                        <div class="row">
-                                                <div class="col">
+                                        <br/>
+                                        <div class="row no-gutter">
+                                                <div class="col-12">
                                                         
                                                         <section id="spots"></section>
                                                         
@@ -145,14 +143,15 @@
     <!-- Preferences Page -->
     <div id="preferences-page">
         <div class="container-fluid spotsBgColor">
+            <div class="spotsDiv">
                 <div class="row">
                         <div class="col align-self-center">
-                                <h3>Preferences</h3>
+                                <h3 class="spotsTitle">Preferences</h3>
                             </div>
                 </div>
     
                 <div class="row">
-                        <div class="col-sm align-self-center">
+                        <div class="col align-self-center spotsCol">
     <select id="transport-mode-select"> 
         <option value="DRIVING">Driving</option> 
         <option value="WALKING">Walking</option>
@@ -161,10 +160,13 @@
     </select>
     </div>
     </div>
-    <div class="row align-self-center">
-    <button  class="btn spotsButton" id="preferences-back">Back to Main</button>
+    <div class="row">
+            <div class="col align-self-center spotsCol">
+    <button class="btn spotsButton" id="preferences-back">Back to Main</button>
     <button class="btn spotsButton" id="preferences-confirm">Confirm Preferences</button>
+            </div>
     </div>
+</div>
     </div>
 </div>
     <!-- Look up into one spot, information to show to be determined -->

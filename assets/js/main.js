@@ -40,7 +40,7 @@ var app_view = {
             loginPage.show();
             signupPage.hide();
             mainApp.hide();
-            spotCreationPage.hide();
+            // spotCreationPage.hide();
             spotViewPage.hide();
             menu.hide();
             spotsDeletionPage.hide();
@@ -49,7 +49,7 @@ var app_view = {
             loginPage.hide();
             signupPage.show();
             mainApp.hide();
-            spotCreationPage.hide();
+            // spotCreationPage.hide();
             spotViewPage.hide();
             menu.hide();
             spotsDeletionPage.hide();
@@ -58,7 +58,7 @@ var app_view = {
             loginPage.hide();
             signupPage.hide();
             mainApp.show();
-            spotCreationPage.hide();
+            // spotCreationPage.hide();
             spotViewPage.hide();
             menu.hide();
             spotsDeletionPage.hide();
@@ -68,7 +68,7 @@ var app_view = {
             loginPage.hide();
             signupPage.hide();
             mainApp.show();
-            spotCreationPage.hide();
+            // spotCreationPage.hide();
             spotViewPage.hide();
             menu.show();
             spotsDeletionPage.hide();
@@ -77,7 +77,7 @@ var app_view = {
             loginPage.hide();
             signupPage.hide();
             mainApp.hide();
-            spotCreationPage.show();
+            // spotCreationPage.show();
             spotViewPage.hide();
             menu.hide()
             spotsDeletionPage.hide();
@@ -86,7 +86,7 @@ var app_view = {
             loginPage.hide();
             signupPage.hide();
             mainApp.hide();
-            spotCreationPage.hide();
+            // spotCreationPage.hide();
             spotViewPage.show();
             menu.hide()
             spotsDeletionPage.hide();
@@ -95,7 +95,7 @@ var app_view = {
             loginPage.hide();
             signupPage.hide();
             mainApp.hide();
-            spotCreationPage.hide();
+            // spotCreationPage.hide();
             spotViewPage.hide();
             menu.hide()
             spotsDeletionPage.show();
@@ -104,7 +104,7 @@ var app_view = {
             loginPage.hide();
             signupPage.hide();
             mainApp.hide();
-            spotCreationPage.hide();
+            // spotCreationPage.hide();
             spotViewPage.hide();
             menu.hide()
             spotsDeletionPage.hide();
@@ -630,7 +630,7 @@ $(document).ready(function(){
 
     // event to open spot creation menu
     $(document).on('click','#create-spot-button', function(){
-        app_view.setState(STATE.MAIN_CREATE_SPOT);
+        // app_view.setState(STATE.MAIN_CREATE_SPOT);
     });
 
     // event on spot creation

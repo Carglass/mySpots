@@ -92,6 +92,7 @@ font-family: 'Istok Web', sans-serif;
 font-size: 20px;
 text-align: center;
 }
+
 .spot {
 width: 100%;
 background-color: #64b5f6;
@@ -105,6 +106,9 @@ color: white;
 font-family: 'Istok Web', sans-serif;
 font-size: 20px; 
 }
+
+.spot:nth-child(2n+1) { background-color: #1985c1; }
+
 .spot-label {
 padding: 10px;
 }
@@ -114,7 +118,8 @@ padding: 10px;
 .pac-container {
 z-index: 10000;
 }
-.pac-container:after{display:none !important;
+.pac-container:after{
+    display:none !important;
 }
 
 /* TITLE */

@@ -4,40 +4,18 @@
   background: linear-gradient(277deg, #64b5f6, #2286c3, #cfd8dc, #9ea7aa);
   background-size: 800% 800%;
   
-  -webkit-animation: AnimationName 59s ease infinite;
-  -moz-animation: AnimationName 59s ease infinite;
-  -o-animation: AnimationName 59s ease infinite;
-  animation: AnimationName 59s ease infinite;
-  
-  @-webkit-keyframes AnimationName {
-      0%{background-position:0% 58%}
-      50%{background-position:100% 43%}
-      100%{background-position:0% 58%}
-  }
-  @-moz-keyframes AnimationName {
-      0%{background-position:0% 58%}
-      50%{background-position:100% 43%}
-      100%{background-position:0% 58%}
-  }
-  @-o-keyframes AnimationName {
-      0%{background-position:0% 58%}
-      50%{background-position:100% 43%}
-      100%{background-position:0% 58%}
-  }
-  @keyframes AnimationName { 
-      0%{background-position:0% 58%}
-      50%{background-position:100% 43%}
-      100%{background-position:0% 58%}
-  }
-background-repeat: no-repeat;
-background-attachment: fixed;
-background-position: center; 
-text-align: center;
-background-size: cover;  
-height: 100vh;
-padding-top: calc(50vh - 150px);
+  animation: AnimationName 50s ease infinite;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
+@keyframes AnimationName { 
+  0%{background-position:27% 0%}
+  50%{background-position:74% 100%}
+  100%{background-position:27% 0%}
+}
 
 /* NAVIGATION BAR */
 .navbar-side {

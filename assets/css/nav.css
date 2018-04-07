@@ -1,0 +1,78 @@
+/* SIGN UP AND LOGIN PAGE BACKGROUND */
+
+.container-style{
+    background: linear-gradient(277deg, #64b5f6, #2286c3, #cfd8dc, #9ea7aa);
+    background-size: 800% 800%;
+    
+    -webkit-animation: AnimationName 59s ease infinite;
+    -moz-animation: AnimationName 59s ease infinite;
+    -o-animation: AnimationName 59s ease infinite;
+    animation: AnimationName 59s ease infinite;
+    
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center; 
+  text-align: center;
+  background-size: cover;  
+  height: 100vh;
+  padding-top: calc(50vh - 150px);
+  }
+  
+  
+  /* NAVIGATION BAR */
+  .navbar-side {
+      height: 100%;
+      width: 25%;
+      position: fixed;
+      top: 0;
+      right: 0;
+      padding: 0;
+      list-style: none;
+      border-left: 2px solid #ccc;
+      background-color: #f7f7f9;
+      overflow-y: scroll;
+      z-index: 1000;
+    }
+    .navbar-side-item {
+      padding: 1.5rem 0;
+      margin: 0;
+      border-bottom: 2px solid #ccc;
+      height: 5rem;
+    }
+    
+    .side-link {
+      padding-left: 2rem;
+    }
+    .navbar-side {
+    -webkit-transform: translateX(100%);
+    -ms-transform: translateX(100%);
+    transform: translateX(100%);
+    -webkit-transition: 300ms ease;
+    transition: 300ms ease;
+  }
+  .reveal {
+      -webkit-transform: translateX(0%);
+      -ms-transform: translateX(0%);
+      transform: translateX(0%);
+      -webkit-transition: 300ms ease;
+      transition: 300ms ease;
+    }
+    .overlay {
+      position: fixed;
+      display: none;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      cursor: pointer;
+      background-color: #ccc;
+      opacity: 0.6;
+      z-index: 990;
+    }
+  
+  
+    .navbar-side {
+        width: 25%;
+    }
+  
+  

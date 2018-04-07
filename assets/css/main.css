@@ -5,7 +5,7 @@ width: 600px;
 height:275px;
 border-radius: 30px;
 display: block;
-margin : 0 auto;
+margin : auto;
 padding: 30px;
 text-align: center;
 }
@@ -48,6 +48,9 @@ box-shadow: 2px 2px 0 #cfd8dc inset;
 /* MAIN PAGE */
 .container-fluid{
 background-color: #ced7db;
+}
+.this-is-my-background{
+    height:100vh;
 }
 .row{
 background-color: #ced7db;
@@ -152,12 +155,12 @@ border: 5px solid #1985c1;
 color: white;
 font-family: 'Istok Web', sans-serif;
 font-size: 20px; 
+text-align:center;
 }
-#spot-deletion-confirm{
+#spot-deletion-confirm, #spots-deletion-back{
 text-align: center;
 margin-top: 40px;
 margin-left: 50%;
-margin-bottom: 50px;
 font-family: 'Istok Web', sans-serif;
 font-size: 30px;
 border-radius: 30px;
@@ -165,20 +168,8 @@ background-color: #1985c1;
 font-size: 20px;
 padding: 20px;
 margin: 50px;
-height: 20%;
+height: 10%;
 width: 15%;
-color: white;
-}
-#spots-deletion-back{
-border-radius: 30px;
-background-color: #1985c1;
-font-size: 20px;
-padding: 20px;
-margin: 50px;
-height: 20%;
-width: 15%;
-float: left;
-font-family: 'Istok Web', sans-serif;
 color: white;
 }
 

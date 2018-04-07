@@ -9,7 +9,7 @@
     <link rel="stylesheet" type="text/css" href="../mySpots/assets/css/reset.css">
 
     <link rel="stylesheet" type="text/css" href="../mySpots/assets/css/main.css">
-    <link rel="stylesheet" type="text/css" href="../mySpots/assets/css/nav.scss">
+    <link rel="stylesheet" type="text/css" href="../mySpots/assets/css/nav.css">
     <link rel="stylesheet" type="text/css" href="../mySpots/assets/css/bootstrap.min.css">
 
     <link href="https://fonts.googleapis.com/css?family=Istok+Web" rel="stylesheet">
@@ -32,7 +32,7 @@
 
       <div class="container-style" id="signup-page">
     <div class="display-box">
-        <p class="login-signup-text"> Sign in to your MySpots</p>
+        <p class="login-signup-text"> Create a new MySpots accounts</p>
         <input class="input-style" type="text" placeholder="name" id='user-create-display'>
         <input class="input-style" type="email" placeholder="email" id="user-create-email">
         <br>
@@ -124,7 +124,7 @@
                     <input type="text" id="data-spot-address" placeholder="Enter Address">
                     </div>
                     <div class="form-group">
-                    <button type="button" class="btn btn-primary" id="data-spot-create">Submit</button>
+                    <button type="button" class="btn btn-primary" data-dismiss='modal' id="data-spot-create">Submit</button>
                     </div>
             </div>
             
@@ -135,13 +135,12 @@
     </div>
     <!-- Spots Deletion Page -->
     <div id="spots-deletion-page">
-            <div class="container-fluid">
-        <button id="spots-deletion-back">Back to Main</button>
-        <h3 id="delete-page-title">Select Spots to delete</h3>
-        <ul id="spots-deletion-list">
-        </ul>
-        <button id="spot-deletion-confirm">Confirm deletion</button>
-    </div>
+        <div class="container-fluid this-is-my-background">
+            <h3 id="delete-page-title">Select Spots to delete</h3>
+            <ul id="spots-deletion-list"></ul>
+            <button id="spots-deletion-back">Back to Main</button>
+            <button id="spot-deletion-confirm">Confirm deletion</button>
+        </div>
     </div>
     <!-- Preferences Page -->
     <div id="preferences-page">

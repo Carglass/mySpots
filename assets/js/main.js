@@ -147,6 +147,12 @@ var user = {
             spots.getTimeToDestinations();
         });
     },
+    reset: function(){
+        this.preferences = {
+            transportMode: '',
+        };
+        this.position = undefined;
+    }
 }
 
 // creates this global variable to indicate that data has not been loaded from Firebase yet
@@ -298,6 +304,10 @@ var spots = {
     // spotArray stores the spot objects for a quick access, sorting etc
     spotsArray: [],
     markersArray: [],
+    reset: function(){
+        this.spotsArray = [];
+        this.markersArray = [];
+    },
     // called on child_added, stores the new spot into spots, then call render
     // maybe useless as it will trigger a lot at app startup
     pushspot: function(newSpot){
@@ -533,6 +543,8 @@ firebase.auth().onAuthStateChanged(function (connectedUser) {
         $('#spots').empty();
         intervalToSendRequest = null;
         watchLocalisation = null;
+        user.reset();
+        spots.reset();
         //should probably reset the user object once we have one
     }
 });
@@ -545,7 +557,6 @@ firebase.auth().onAuthStateChanged(function (connectedUser) {
 $(document).ready(function(){
     // used for testing purpose, to set environement in main app, to skip login
     app_view.render();
-    $('#menu-toggle').data('champion','yo');
 
     //---------------//
     // Auth Controls //

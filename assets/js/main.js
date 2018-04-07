@@ -496,7 +496,7 @@ function listenToSpotsDeletion (){
             if (spots.markersArray[i].uid === deletedUid){
                 // TODO: Understand why it works, it should not as the index i is not
                 // the good one after the first splice
-                markersArray[i].marker.setMap(null);
+                spots.markersArray[i].marker.setMap(null);
             }
         }
         spots.spotsArray = tempSpotsArray;

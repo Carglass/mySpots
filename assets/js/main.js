@@ -531,6 +531,8 @@ firebase.auth().onAuthStateChanged(function (connectedUser) {
         app_view.setState(STATE.LOGIN);
         // empties the location element for a future session (and data protection :D)
         $('#spots').empty();
+        intervalToSendRequest = null;
+        watchLocalisation = null;
         //should probably reset the user object once we have one
     }
 });
@@ -565,6 +567,7 @@ $(document).ready(function(){
                   }).then(function(user){
                       // update the user name display name using a dork interface
                       user.updateProfile({displayName: name});
+                      database.ref('users/' + firebase.auth().currentUser.uid + '/preferences').set('DRIVING');
                       // reset the values in the fields
                       $('#user-create-display').val('');
                       $('#user-create-email').val('');
@@ -577,6 +580,7 @@ $(document).ready(function(){
 
 
     });
+
 
     //event to login
     // TODO: [NICE TO HAVE] disable this control when a user is connected

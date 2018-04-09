@@ -40,7 +40,7 @@ var app_view = {
             loginPage.show();
             signupPage.hide();
             mainApp.hide();
-            spotCreationPage.hide();
+            // spotCreationPage.hide();
             spotViewPage.hide();
             menu.hide();
             spotsDeletionPage.hide();
@@ -49,7 +49,7 @@ var app_view = {
             loginPage.hide();
             signupPage.show();
             mainApp.hide();
-            spotCreationPage.hide();
+            // spotCreationPage.hide();
             spotViewPage.hide();
             menu.hide();
             spotsDeletionPage.hide();
@@ -58,7 +58,7 @@ var app_view = {
             loginPage.hide();
             signupPage.hide();
             mainApp.show();
-            spotCreationPage.hide();
+            // spotCreationPage.hide();
             spotViewPage.hide();
             menu.hide();
             spotsDeletionPage.hide();
@@ -68,7 +68,7 @@ var app_view = {
             loginPage.hide();
             signupPage.hide();
             mainApp.show();
-            spotCreationPage.hide();
+            // spotCreationPage.hide();
             spotViewPage.hide();
             menu.show();
             spotsDeletionPage.hide();
@@ -77,7 +77,7 @@ var app_view = {
             loginPage.hide();
             signupPage.hide();
             mainApp.hide();
-            spotCreationPage.show();
+            // spotCreationPage.show();
             spotViewPage.hide();
             menu.hide()
             spotsDeletionPage.hide();
@@ -86,7 +86,7 @@ var app_view = {
             loginPage.hide();
             signupPage.hide();
             mainApp.hide();
-            spotCreationPage.hide();
+            // spotCreationPage.hide();
             spotViewPage.show();
             menu.hide()
             spotsDeletionPage.hide();
@@ -95,7 +95,7 @@ var app_view = {
             loginPage.hide();
             signupPage.hide();
             mainApp.hide();
-            spotCreationPage.hide();
+            // spotCreationPage.hide();
             spotViewPage.hide();
             menu.hide()
             spotsDeletionPage.show();
@@ -104,7 +104,7 @@ var app_view = {
             loginPage.hide();
             signupPage.hide();
             mainApp.hide();
-            spotCreationPage.hide();
+            // spotCreationPage.hide();
             spotViewPage.hide();
             menu.hide()
             spotsDeletionPage.hide();
@@ -147,6 +147,12 @@ var user = {
             spots.getTimeToDestinations();
         });
     },
+    reset: function(){
+        this.preferences = {
+            transportMode: '',
+        };
+        this.position = undefined;
+    }
 }
 
 // creates this global variable to indicate that data has not been loaded from Firebase yet
@@ -268,7 +274,7 @@ function initMap (){
       zoom: 4,
       center: currentSpot
     });
-    map.setZoom(10);
+    map.setZoom(16);
     spots.getTimeToDestinations();
     activateAutoComplete();
     geocoder = new google.maps.Geocoder();
@@ -298,6 +304,13 @@ var spots = {
     // spotArray stores the spot objects for a quick access, sorting etc
     spotsArray: [],
     markersArray: [],
+    reset: function(){
+        this.spotsArray = [];
+        for (element of this.markersArray){
+            element.marker.setMap(null);
+        }
+        this.markersArray = [];
+    },
     // called on child_added, stores the new spot into spots, then call render
     // maybe useless as it will trigger a lot at app startup
     pushspot: function(newSpot){
@@ -531,6 +544,10 @@ firebase.auth().onAuthStateChanged(function (connectedUser) {
         app_view.setState(STATE.LOGIN);
         // empties the location element for a future session (and data protection :D)
         $('#spots').empty();
+        intervalToSendRequest = null;
+        watchLocalisation = null;
+        user.reset();
+        spots.reset();
         //should probably reset the user object once we have one
     }
 });
@@ -543,7 +560,6 @@ firebase.auth().onAuthStateChanged(function (connectedUser) {
 $(document).ready(function(){
     // used for testing purpose, to set environement in main app, to skip login
     app_view.render();
-    $('#menu-toggle').data('champion','yo');
 
     //---------------//
     // Auth Controls //
@@ -565,6 +581,7 @@ $(document).ready(function(){
                   }).then(function(user){
                       // update the user name display name using a dork interface
                       user.updateProfile({displayName: name});
+                      database.ref('users/' + firebase.auth().currentUser.uid + '/preferences/transportMode').set('DRIVING');
                       // reset the values in the fields
                       $('#user-create-display').val('');
                       $('#user-create-email').val('');
@@ -577,6 +594,7 @@ $(document).ready(function(){
 
 
     });
+
 
     //event to login
     // TODO: [NICE TO HAVE] disable this control when a user is connected
@@ -615,7 +633,7 @@ $(document).ready(function(){
 
     // event to open spot creation menu
     $(document).on('click','#create-spot-button', function(){
-        app_view.setState(STATE.MAIN_CREATE_SPOT);
+        // app_view.setState(STATE.MAIN_CREATE_SPOT);
     });
 
     // event on spot creation

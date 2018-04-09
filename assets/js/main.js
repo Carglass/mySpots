@@ -306,6 +306,9 @@ var spots = {
     markersArray: [],
     reset: function(){
         this.spotsArray = [];
+        for (element of this.markersArray){
+            element.marker.setMap(null);
+        }
         this.markersArray = [];
     },
     // called on child_added, stores the new spot into spots, then call render
